@@ -15,7 +15,7 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-# 👋 ¡Hola, soy P. F.!
+# 👋 ¡Hola, soy Pablo Fernández!
 
 ## 💼 Sobre mí
 Soy **Store Manager en Foot Locker**, donde llevo más de **15 años** desarrollando mi carrera profesional.  
@@ -23,7 +23,7 @@ Durante este tiempo he tenido la oportunidad de **liderar equipos de entre 10 y 
 
 Mi dedicación y compromiso me han llevado a recibir diversos reconocimientos:
 - 🏆 *Líder del Año 2024 España*  
-- 🏆 *Manager del Año en Mentalidad Empresarial 2024*  
+- 🏆 *Manager del Año en Mentalidad Empresarial 2024 España*  
 - 🏆 *Manager del Año en Madrid 2024*
 
 Gracias a esta trayectoria, he desarrollado una sólida **capacidad de liderazgo**, **gestión de equipos**, **resolución de problemas** y una fuerte **orientación a resultados** — habilidades que considero clave también en el ámbito tecnológico.
@@ -52,5 +52,6 @@ Me apasiona aprender, colaborar en proyectos con propósito y seguir mejorando c
 
 ### 📫 Conectemos
 Si quieres charlar sobre tecnología, desarrollo o liderazgo, ¡me encantará conectar contigo!  
-💌 [pablofernandezcumplido@gmail.com]  
+💌 [pablofernandezcumplido@gmail.com]  / [Mi Linkedin](https://www.linkedin.com/in/pablo-fern%C3%A1ndez-cumplido-57108b332/)
+
 
