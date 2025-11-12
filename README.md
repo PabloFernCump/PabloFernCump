@@ -1,4 +1,4 @@
-## <img src="PabloLogo.jpg" alt="Logo de mi proyecto" width="75"> Hola a todos! Mi nombre es Pablo 👋
+## <img src="PabloLogo2.JPG" alt="Logo de mi proyecto" width="75"> Hola a todos! Mi nombre es Pablo 👋
 ### Estudiante de DAW y desarrollando mi proyecto
 
 <!--
