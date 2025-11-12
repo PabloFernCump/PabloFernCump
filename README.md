@@ -1,4 +1,5 @@
-## Hola a todos! Mi nombre es Pablo 👋
+## <img src="PabloLogo.jpg" alt="Logo de mi proyecto" width="75"> Hola a todos! Mi nombre es Pablo 👋
+### Estudiante de DAW y desarrollando mi proyecto
 
 <!--
 **PabloFernCump/PabloFernCump** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
