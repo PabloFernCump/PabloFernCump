@@ -52,6 +52,9 @@ Me apasiona aprender, colaborar en proyectos con propósito y seguir mejorando c
 
 ### 📫 Conectemos
 Si quieres charlar sobre tecnología, desarrollo o liderazgo, ¡me encantará conectar contigo!  
-💌 [pablofernandezcumplido@gmail.com]  / [Mi Linkedin](https://www.linkedin.com/in/pablo-fern%C3%A1ndez-cumplido-57108b332/)
+
+[![Correo electronico](IMGgmail.PNG)](pablofernandezcumplido@gmail.com)
+<br>
+[![Linkedin](IMGin.PNG)](https://www.linkedin.com/in/pablo-fern%C3%A1ndez-cumplido-57108b332/)
 
 
