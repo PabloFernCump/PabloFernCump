@@ -35,7 +35,7 @@ Actualmente estoy cursando el **Ciclo Formativo de Grado Superior en Desarrollo 
 Mi objetivo es seguir aprendiendo y aplicar los conocimientos adquiridos en proyectos reales, uniendo mi experiencia en gestión con el mundo del desarrollo.
 
 ### 🔧 Tecnologías que estoy aprendiendo:
-- **Frontend:** HTML5, CSS3, JavaScript  
+- **Frontend:** HTML5, CSS3, JavaScript, Wordpress(Elementor)  
 - **Backend:** PHP, Java  
 - **Bases de datos:** MySQL  
 - **Entornos de desarrollo:** Visual Studio Code, IntelliJ IDEA, XAMPP  
