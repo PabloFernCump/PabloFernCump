@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import authRoutes from './routes/auth.routes'; //Conecta rutas a la app
 
 //import { db } from './config/database';
 
@@ -7,6 +8,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use('/api/auth', authRoutes); //Conecta rutas a la app
+
 
 /* RUTA DE PRUEBA
 app.get('/test-db', async (req, res) => {
