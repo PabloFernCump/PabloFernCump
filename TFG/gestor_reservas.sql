@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2025 a las 10:47:11
+-- Tiempo de generación: 29-01-2026 a las 00:09:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -45,7 +45,8 @@ CREATE TABLE `courts` (
 INSERT INTO `courts` (`id`, `name`, `type`, `surface`, `active`, `opening_time`, `closing_time`, `created_at`) VALUES
 (1, 'Pista Central', 'padel', 'césped sintético', 1, '08:00:00', '22:00:00', '2025-11-14 17:42:09'),
 (2, 'Pista 1', 'padel', 'césped sintético', 1, '08:00:00', '22:00:00', '2025-11-14 17:42:09'),
-(3, 'Pista 2', 'tenis', 'pista dura', 1, '08:00:00', '22:00:00', '2025-11-14 17:42:09');
+(3, 'Pista 2', 'tenis', 'pista dura', 1, '08:00:00', '22:00:00', '2025-11-14 17:42:09'),
+(4, 'Pista 3', 'padel', 'césped artificial', 1, '08:00:00', '22:00:00', '2026-01-28 22:50:24');
 
 -- --------------------------------------------------------
 
@@ -114,6 +115,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password_hash`, `role_id`, `phone`, `created_at`) VALUES
+(1, 'Pablo', 'pablo@test.com', '$2b$10$t1lHdpWhdxLqIPYJxasSxOdjiMnEk5LGrWmqpvhh1Rb9eWsvF9DtG', 1, NULL, '2026-01-27 21:48:08'),
+(2, 'Fefi', 'feficumplido@yahoo.es', '$2b$10$stb9mleFM8DzRPR7SJITp.9PHtTLGiQ.LG1LVGVbGNWnSQice3QRi', 1, NULL, '2026-01-27 22:02:18'),
+(5, '', 'admin@test.com', '$2b$10$Un9uGvP7p0S1lW6M9E5A9u9/k5.R1Y.Cj1S6h8Z4S3.h6S5g7Y9S.', 2, NULL, '2026-01-28 22:22:59'),
+(6, 'Super Admin', 'nuevo@test.com', '$2b$10$5qoZcx9hPx8PE9vo0jU7qO2pzvOV9RFA1s7kfqeG8OsSwO7QeHZhe', 2, NULL, '2026-01-28 22:34:44');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -162,7 +173,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `courts`
 --
 ALTER TABLE `courts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `payments`
@@ -186,7 +197,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
