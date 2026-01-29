@@ -5,6 +5,7 @@ import cors from 'cors';
 import authRoutes from './routes/auth.routes'; //Conecta las rutas de auth a la app
 import courtRoutes from './routes/court.routes'; //Conecta las rutas de court a la app
 import reservationRoutes from './routes/reservation.routes'; //Conecta las rutas del sistema de reservas a la app
+import availabilityRoutes from './routes/availability.routes'; //Conecta las rutas de la disponibilidad de huecos libres a la app
 
 
 //IMPORT PARA LA RUTA DE PRUEBA MAS ABAJO
@@ -36,6 +37,8 @@ app.use('/api/courts', courtRoutes);
 // Todas estas rutas requieren autenticación mediante JWT para identificar al usuario
 app.use('/api/reservations', reservationRoutes);
 
+// Conecta el sistema de consulta de huecos libres
+app.use('/api/availability', availabilityRoutes);
 
 /* RUTA DE PRUEBA
 app.get('/test-db', async (req, res) => {
