@@ -2,8 +2,10 @@
 
 import express from 'express';
 import cors from 'cors';
-import authRoutes from './routes/auth.routes'; //Conecta rutas de auth a la app
+import authRoutes from './routes/auth.routes'; //Conecta las rutas de auth a la app
 import courtRoutes from './routes/court.routes'; //Conecta las rutas de court a la app
+import reservationRoutes from './routes/reservation.routes'; //Conecta las rutas del sistema de reservas a la app
+
 
 //IMPORT PARA LA RUTA DE PRUEBA MAS ABAJO
 //import { db } from './config/database';
@@ -30,6 +32,9 @@ app.use('/api/auth', authRoutes);
 // Importante recordar que algunas de estas rutas están protegidas por roles
 app.use('/api/courts', courtRoutes);
 
+// Conecta el sistema de gestión de reservas bajo el prefijo /api/reservations
+// Todas estas rutas requieren autenticación mediante JWT para identificar al usuario
+app.use('/api/reservations', reservationRoutes);
 
 
 /* RUTA DE PRUEBA
