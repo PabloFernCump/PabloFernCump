@@ -6,6 +6,8 @@ import authRoutes from './routes/auth.routes'; //Conecta las rutas de auth a la 
 import courtRoutes from './routes/court.routes'; //Conecta las rutas de court a la app
 import reservationRoutes from './routes/reservation.routes'; //Conecta las rutas del sistema de reservas a la app
 import availabilityRoutes from './routes/availability.routes'; //Conecta las rutas de la disponibilidad de huecos libres a la app
+import adminRoutes from './routes/admin.routes'; //Conecta las rutas del panel de administrador a la app
+
 
 
 //IMPORT PARA LA RUTA DE PRUEBA MAS ABAJO
@@ -39,6 +41,14 @@ app.use('/api/reservations', reservationRoutes);
 
 // Conecta el sistema de consulta de huecos libres
 app.use('/api/availability', availabilityRoutes);
+
+/**
+ * Rutas de Administración:
+ * Define el punto de entrada para la gestión global de reservas.
+ * Todas las rutas dentro de 'adminRoutes' requerirán el prefijo /api/admin.
+ * Ejemplo: GET /api/admin/reservations
+ */
+app.use('/api/admin', adminRoutes);
 
 /* RUTA DE PRUEBA
 app.get('/test-db', async (req, res) => {
