@@ -20,6 +20,7 @@ const app = express();
  * MIDDLEWARES GLOBALES
  */
 // Habilita el Intercambio de Recursos de Origen Cruzado (CORS) para permitir peticiones desde el Frontend
+// Esto permite que tu React (puerto 5173) hable con tu API (puerto 3000)
 app.use(cors());
 // Permite que el servidor entienda y procese archivos en formato JSON
 app.use(express.json());
