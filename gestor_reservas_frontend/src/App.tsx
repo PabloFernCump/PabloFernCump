@@ -2,7 +2,7 @@
  * Usamos una Arrow Function (const App = () => ...) ya que es el estándar 
  * actual en proyectos con Vite y TypeScript.
  */
-const App = () => {
+/*const App = () => {
   return (
     <div style={{ padding: '40px', textAlign: 'center', fontFamily: 'sans-serif' }}>
       <h1>Gestor de Reservas</h1>
@@ -18,6 +18,19 @@ const App = () => {
       </div>
     </div>
   );
+};
+
+export default App;
+*/
+
+import AppRouter from './routes/AppRouter';
+
+/**
+ * App ahora es un componente "limpio" que simplemente 
+ * renderiza el enrutador de la aplicación.
+ */
+const App = () => {
+  return <AppRouter />;
 };
 
 export default App;

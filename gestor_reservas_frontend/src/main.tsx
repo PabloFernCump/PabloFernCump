@@ -1,3 +1,5 @@
+//Punto de entrada. Aqui se enciende la maquinaria de la aplicacion
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'

@@ -1,0 +1,71 @@
+/*Estilos del Login Page*/
+
+/* Contenedor principal: ocupa toda la pantalla */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* La tarjeta blanca del formulario */
+.login-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px; /* Un poco más redondeado para un look moderno */
+  width: 350px;        /* Un poco más ancho para que los inputs respiren */
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.login-box h2 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+/* Inputs (Email y Contraseña) */
+.login-box input {
+  width: 100%;
+  padding: 0.8rem; /* Aumentamos el padding para facilitar el clic */
+  margin-bottom: 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  /* Importante: asegura que el padding no ensanche el input fuera del box */
+  box-sizing: border-box; 
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Efecto visual cuando el usuario hace clic en un input */
+.login-box input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+/* Botón de acceso */
+.login-box button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #3498db;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  /* Transición para que el cambio de color al pasar el ratón sea suave */
+  transition: background-color 0.3s ease, transform 0.1s active;
+}
+
+/* Efecto Hover (pasar el ratón) */
+.login-box button:hover {
+  background-color: #2980b9;
+}
+
+/* Efecto de clic (el botón se hunde un poquito) */
+.login-box button:active {
+  transform: scale(0.98);
+}
