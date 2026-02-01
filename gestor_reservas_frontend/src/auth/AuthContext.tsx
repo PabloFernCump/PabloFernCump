@@ -10,6 +10,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface AuthContextType {
   token: string | null;
   roleId: number | null; // <--- Nuevo: Guardamos el ID del rol
+  user: any; // <--- Añado esta línea para que el Router no dé error
   isAuthenticated: boolean;
   login: (token: string, roleId: number) => void; //<--- Ahora recibe dos datos
   logout: () => void;
@@ -71,6 +72,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         token,
         roleId,
+        user: token, // <---  Así 'user' tendrá el valor del token y el Router estará contento
         isAuthenticated: !!token,
         login,
         logout

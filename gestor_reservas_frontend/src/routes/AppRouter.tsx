@@ -1,42 +1,32 @@
 //Configurar rutas
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginPage from '../pages/LoginPage.tsx';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
 import DashboardPage from '../pages/DashboardPage';
-import ProtectedRoute from './ProtectedRoute';
+import CourtsPage from '../pages/user/CourtsPage'; // Importamos la nueva página
+import { useAuth } from '../auth/AuthContext';
 
-/**
- * AppRouter es el centro de control de navegación de tu aplicación.
- * Define qué componente se debe mostrar según la URL en la que esté el usuario.
- */
 const AppRouter = () => {
-  return (
-    /**
-     * BrowserRouter: Proporciona el historial de navegación del navegador 
-     * a todos los componentes que estén dentro de él.
-     */
-    <BrowserRouter>
-      {/* Routes: Actúa como un contenedor que busca la mejor coincidencia entre las rutas definidas */}
-      <Routes>
-        
-        {/* Route: Define una ruta publica. Cualquiera puede ver el login
-            path="/": Es la raíz o página de inicio.
-            element: Indica el componente que se cargará (en este caso, tu página de Login).
-        */}
-        <Route path="/" element={<LoginPage />} />
-        
-        {/* Ruta protegida: Solo accesible si hay token */}
-        <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
-          } 
-        />
+  const { user } = useAuth();
 
+  return (
+    <Router>
+      <Routes>
+        {/* Rutas Públicas */}
+        <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/dashboard" />} />
+        <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/dashboard" />} />
+
+        {/* Rutas Protegidas */}
+        <Route path="/dashboard" element={user ? <DashboardPage /> : <Navigate to="/login" />} />
+        
+        {/* NUEVA RUTA: Listado de pistas para usuarios */}
+        <Route path="/courts" element={user ? <CourtsPage /> : <Navigate to="/login" />} />
+
+        {/* Redirección por defecto */}
+        <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 };
 

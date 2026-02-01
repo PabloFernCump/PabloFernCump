@@ -1,11 +1,13 @@
 //Primera pagina privada (inteligente por roles)
 
+import { useNavigate } from 'react-router-dom'; // <--- Añadimos el hook de navegación
 import { useAuth } from '../auth/AuthContext';
 import '../styles/dashboard.css'; // <--- Aqui se importan los nuevos estilos
 
 const DashboardPage = () => {
   // Extraemos logout y roleId (1=User, 2=Admin) del contexto
   const { logout, roleId } = useAuth();
+  const navigate = useNavigate(); // <--- Inicializamos el navegador
 
   return (
     <div className="dashboard-container">
@@ -41,10 +43,12 @@ const DashboardPage = () => {
             {roleId === 2 ? (
               <>
                 <button className="btn-primary">Gestionar Usuarios</button>
-                <button className="btn-primary">Configurar Pistas</button>
+                {/* El Admin también debe poder ir a ver/configurar las pistas */}
+                <button className="btn-primary" onClick={() => navigate('/courts')}>Configurar Pistas</button>
               </>
             ) : (
-              <button className="btn-primary">Nueva Reserva</button>
+              /* El usuario va a la misma página para ver y elegir pista */
+              <button className="btn-primary" onClick={() => navigate('/courts')}>Nueva Reserva</button>
             )}
           </div>
 

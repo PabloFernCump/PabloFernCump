@@ -1,0 +1,90 @@
+/* src/styles/courts.css */
+
+.courts-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.courts-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* La cuadrícula de pistas */
+.courts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Estilo de la Tarjeta (CourtCard) */
+.court-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  border: 1px solid #eee;
+}
+
+.court-card:hover {
+  transform: translateY(-5px);
+}
+
+.court-card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.court-card p {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+/* Botones */
+.btn-reserve, .btn-admin {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.btn-reserve {
+  background-color: #27ae60;
+  color: white;
+}
+
+.btn-reserve:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.btn-admin {
+  background-color: #e67e22;
+  color: white;
+}
+
+/* Botón de volver atrás */
+.btn-back {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-back:hover {
+  background-color: #e2e6ea;
+  border-color: #ccc;
+}
