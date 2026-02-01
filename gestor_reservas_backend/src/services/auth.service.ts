@@ -42,5 +42,8 @@ export const loginUser = async (email: string, password: string) => {
     role_id: user.role_id
   });
 
-  return { token };
+  return { 
+    token,
+    role_id: user.role_id 
+};
 };

@@ -17,6 +17,8 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const result = await loginUser(email, password);
+
+    // Esto enviará tanto el token como el role_id al frontend
     res.json(result);
   } catch (error: any) {
     res.status(401).json({ message: error.message });
