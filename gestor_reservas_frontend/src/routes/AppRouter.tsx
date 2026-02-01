@@ -2,6 +2,8 @@
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage.tsx';
+import DashboardPage from '../pages/DashboardPage';
+import ProtectedRoute from './ProtectedRoute';
 
 /**
  * AppRouter es el centro de control de navegación de tu aplicación.
@@ -17,15 +19,21 @@ const AppRouter = () => {
       {/* Routes: Actúa como un contenedor que busca la mejor coincidencia entre las rutas definidas */}
       <Routes>
         
-        {/* Route: Define una ruta específica. 
+        {/* Route: Define una ruta publica. Cualquiera puede ver el login
             path="/": Es la raíz o página de inicio.
             element: Indica el componente que se cargará (en este caso, tu página de Login).
         */}
         <Route path="/" element={<LoginPage />} />
         
-        {/* Próximamente podrías añadir aquí:
-            <Route path="/admin" element={<AdminDashboard />} /> 
-        */}
+        {/* Ruta protegida: Solo accesible si hay token */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          } 
+        />
 
       </Routes>
     </BrowserRouter>

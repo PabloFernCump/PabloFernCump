@@ -1,0 +1,103 @@
+/*Estilos del Dashboard Page*/
+
+/* Contenedor principal del Dashboard */
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #f4f7f6; /* Un gris muy claro para el fondo */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Barra de navegación superior */
+.dashboard-nav {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.dashboard-nav h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Contenido central */
+.dashboard-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.welcome-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Botón de cerrar sesión */
+.btn-logout {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+}
+
+.text-secondary {
+  color: #666;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Nueva etiqueta para mostrar el rol al lado del botón */
+.role-badge {
+  background-color: #34495e;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 1rem;
+}
+
+/* Color especial si es Admin para que resalte */
+.role-admin {
+  border-left: 4px solid #f1c40f; /* Un toque dorado para el admin */
+}
+
+/* Contenedor para botones de acción */
+.action-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
