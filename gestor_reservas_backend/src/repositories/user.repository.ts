@@ -12,12 +12,13 @@ export const findUserByEmail = async (email: string) => {
 
 export const createUser = async (
   name: string,
+  apellidos: string, // <--- Añadimos el nuevo parámetro
   email: string,
   passwordHash: string
 ) => {
   const [result] = await db.query(
-    'INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)',
-    [name, email, passwordHash]
+    'INSERT INTO users (name, apellidos, email, password_hash) VALUES (?, ?, ?, ?)', // <--- Añadimos apellidos y un "?" extra
+    [name, apellidos, email, passwordHash] // <--- Pasamos el valor a la consulta
   );
   return result;
 };

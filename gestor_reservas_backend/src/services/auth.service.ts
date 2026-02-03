@@ -6,6 +6,7 @@ import { generateToken } from '../utils/jwt';
 
 export const registerUser = async (
   name: string,
+  apellidos: string, // <--- Añadimos apellidos
   email: string,
   password: string
 ) => {
@@ -16,7 +17,8 @@ export const registerUser = async (
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
-  await createUser(name, email, passwordHash);
+  // Pasamos los 4 parámetros al repositorio
+  await createUser(name, apellidos, email, passwordHash);
 
   return { message: 'Usuario registrado correctamente' };
 };
