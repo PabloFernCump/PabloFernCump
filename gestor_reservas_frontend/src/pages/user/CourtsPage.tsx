@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'; // <--- Añadimos para poder vol
 import { getCourts } from '../../services/courts.service';
 import type { Court } from '../../services/courts.service';
 import CourtCard from '../../components/CourtCard';
-import { useAuth } from '../../auth/AuthContext';
+//import { useAuth } from '../../auth/AuthContext';
 import '../../styles/courts.css'; // <--- Estilos de las tarjetas de pistas
 
 const CourtsPage = () => {
@@ -14,7 +14,7 @@ const CourtsPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   
   // Extraemos el roleId para pasárselo a la tarjeta (aunque aquí será siempre User)
-  const { roleId } = useAuth();
+  //const { roleId } = useAuth();
   const navigate = useNavigate(); // <--- Inicializamos el navegador
 
   // 2. useEffect para llamar al backend al cargar la página
@@ -56,7 +56,7 @@ const CourtsPage = () => {
             <CourtCard 
               key={court.id} 
               court={court} 
-              isAdmin={roleId === 2} 
+              isAdmin={false} // <--- CAMBIO: Aquí siempre es false, porque esta es la página de Usuario 
             />
           ))
         ) : (
