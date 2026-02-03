@@ -1,107 +1,139 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../api/axios'; // La instancia de Axios con la URL base
-import { useAuth } from '../auth/AuthContext'; // Hook para acceder a la función login()
-import '../styles/login.css'; // Estilos específicos para esta página
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import api from '../api/axios'; // <--- Importante: Añadimos la conexión a la API
+import '../styles/login.css'; // <--- Usamos los mismos estilos que el Login
+
+// 1. Definimos una interfaz para que TypeScript sepa qué campos tiene el formulario
+interface RegisterFormData {
+  name: string;
+  apellidos: string;
+  email: string;
+  password: string;
+}
 
 const RegisterPage = () => {
-  // 1. Estados locales para capturar lo que el usuario escribe
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // 2. Le decimos al useState que use esa interfaz
+  const [formData, setFormData] = useState<RegisterFormData>({
+    name: '',
+    apellidos: '',
+    email: '',
+    password: ''
+  });
   
-  // 2. Extraemos la función login del contexto global
-  const { login } = useAuth();
-
-  /**
-   * 3. INICIALIZACIÓN DEL HOOK
-   * useNavigate es una función de react-router-dom que nos permite 
-   * cambiar la URL de la página sin que el usuario haga clic.
-   */
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  /**
-   * handleSubmit: Se ejecuta al hacer clic en "Entrar" o pulsar Enter.
-   */
+  // 3. Corregimos la función para que TypeScript no se queje al usar [e.target.name]
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ 
+      ...formData, 
+      [name]: value // Al usar la interfaz arriba, TypeScript ya permite esto
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Evita que la página se recargue (comportamiento por defecto de HTML)
-  
-  // añado este codigo extra para debugear (asi nos sale en la teminal):
-  console.log("Enviando login con:", { email, password });
+    e.preventDefault();
+    console.log("Datos que van al servidor:", formData);
+    setError(''); // Limpiamos errores anteriores
 
     try {
-      /**
-       * Petición POST al backend. 
-       * Gracias a nuestra config de Axios, solo ponemos '/auth/login'
-       */
-      const response = await api.post('/auth/login', {
-        email,
-        password
-      });
+      console.log("Registrando usuario:", formData);
+      
+      // --- CÓDIGO AÑADIDO: La llamada real al backend ---
+      const response = await api.post('/auth/register', formData);
+      
+      console.log("Respuesta exitosa:", response.data);
+      alert("¡Usuario registrado con éxito!");
+      navigate('/login'); // Redirigimos al login tras el éxito
+      // -------------------------------------------------
 
-      /** 1
-       * Si el servidor responde con éxito, ejecutamos login().
-       * Esto guarda el token en localStorage y actualiza el estado global.
-       */
-      //login(response.data.token);
-      //alert('Login correcto');
-
-      /**
-       ******** Actualización: IMPORTANTE:
-       * Extraemos 'token' y 'role_id' de la respuesta del servidor.
-       * Asegúrate de que tu Backend envíe exactamente esos nombres.
-       */
-      const { token, role_id } = response.data;
-      // Guardamos ambos en nuestro nuevo Contexto
-      login(token, role_id);
-      
-      /** 2
-       * REDIRECCIÓN
-       * Una vez que el login es exitoso y tenemos el token,
-       * "empujamos" al usuario hacia la ruta '/dashboard'.
-       * El componente ProtectedRoute en el router detectará que 
-       * ya estamos autenticados y nos dejará pasar.
-       */
-      navigate('/dashboard');
-      
-      
-    } catch (error) {
-      /**
-       * Si el servidor devuelve un error (401, 404, etc.), 
-       * mostramos el aviso de credenciales incorrectas.
-       */
-      console.error('Error en el login:', error);
-      alert('Credenciales incorrectas. Por favor, revisa tu email y contraseña.');
-  
-  alert('Credenciales incorrectas o error en el servidor');
+    } catch (err: any) {
+      console.error("Error en el registro:", err);
+      // Si el backend devuelve un mensaje de error, lo capturamos aquí
+      const serverMessage = err.response?.data?.message || 'Error al conectar con el servidor';
+      setError(serverMessage);
     }
   };
 
-    return (
+  return (
     <div className="login-container">
-      {/* El evento onSubmit en el form permite que funcione también al pulsar "Enter" */}
-      <form className="login-box" onSubmit={handleSubmit}>
-        <h2>Gestor de Reservas</h2>
-        <div className="input-group">
-          <input
-            type="email"
-            placeholder="Email"
-           value={email} // Vinculamos el input con el estado
-            onChange={e => setEmail(e.target.value)} // Actualizamos el estado al escribir
-            required
-          />
-        </div>
-        <div className="input-group">
-          <input
-            type="password"
-            placeholder="Contraseña"
-           value={password}
-           onChange={e => setPassword(e.target.value)}
-            required
-           />
-        </div>
+      <div className="login-card">
+        <h2>Crear Nueva Cuenta</h2>
+        
+        {/* Mostramos el error si existe y no es el específico de "ya registrado" */}
+        {error && error !== 'El usuario ya existe' && (
+          <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>
+        )}
 
-        <button type="submit">Entrar</button>
-      </form>
+        {error === 'El usuario ya existe' ? (
+          <div className="error-container">
+            <p className="error-msg">Este correo ya está registrado.</p>
+            <div className="error-actions">
+              <Link to="/login" className="btn-link">Ir al Login</Link>
+              <button className="btn-link" onClick={() => navigate('/forgot-password')}>
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Nombre</label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="apellidos">Apellidos</label>
+              <input
+                id="apellidos"
+                type="text"
+                name="apellidos"
+                value={formData.apellidos}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Correo Electrónico</label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Contraseña</label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button type="submit" className="btn-primary">Registrarse</button>
+          </form>
+        )}
+
+        <p className="footer-text">
+          ¿Ya tienes cuenta? <Link to="/login">Inicia sesión aquí</Link>
+        </p>
+      </div>
     </div>
   );
 };

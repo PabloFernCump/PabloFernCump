@@ -1,0 +1,94 @@
+/* Contenedor principal */
+.admin-management-container {
+  padding: 20px;
+  background-color: #f4f7f6;
+  min-height: 100vh;
+}
+
+/* Navegación */
+.management-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.btn-back-nav {
+  padding: 8px 15px;
+  background: #eee;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Tarjeta de la tabla */
+.table-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.btn-add-user {
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Estilos de la tabla */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #eee;
+  color: #666;
+}
+
+.user-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f9f9f9;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 40px !important;
+  color: #999;
+}
+
+/* Badges de rol */
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.badge.admin { background: #ffeaa7; color: #d63031; }
+.badge.user { background: #dfe6e9; color: #2d3436; }
+
+.btn-edit {
+  color: #3498db;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}

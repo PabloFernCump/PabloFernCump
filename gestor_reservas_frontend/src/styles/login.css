@@ -69,3 +69,65 @@
 .login-box button:active {
   transform: scale(0.98);
 }
+
+
+
+/* --- Estilos ñadidos para que el RegisterPage se vea perfecto --- */
+
+/* Estilos para las etiquetas (Labels) que no estaban en el login */
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column; /* Pone el texto de la etiqueta ARRIBA del input */
+  text-align: left;       /* Alinea el texto a la izquierda */
+}
+
+.form-group label {
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+/* Reutilizamos el estilo de los inputs de login para los nuevos del registro */
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+/* Estilo para el enlace de "Registrate aquí" o "Inicia sesión" */
+.footer-text {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footer-text a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}
+
+/* Ajuste para que la tarjeta del registro pueda crecer si hay muchos campos */
+.login-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 380px; /* Un pelín más ancha para el registro */
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}

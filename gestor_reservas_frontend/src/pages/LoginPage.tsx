@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // <--- Añadimos Link aquí
 import api from '../api/axios'; // La instancia de Axios con la URL base
 import { useAuth } from '../auth/AuthContext'; // Hook para acceder a la función login()
 import '../styles/login.css'; // Estilos específicos para esta página
@@ -86,7 +86,7 @@ const LoginPage = () => {
           <input
             type="email"
             placeholder="Email"
-           value={email} // Vinculamos el input con el estado
+            value={email} // Vinculamos el input con el estado
             onChange={e => setEmail(e.target.value)} // Actualizamos el estado al escribir
             required
           />
@@ -95,13 +95,18 @@ const LoginPage = () => {
           <input
             type="password"
             placeholder="Contraseña"
-           value={password}
-           onChange={e => setPassword(e.target.value)}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
             required
            />
         </div>
 
         <button type="submit">Entrar</button>
+
+        {/* Se añade el enlace al registro aquí debajo */}
+        <p className="footer-text" style={{ marginTop: '15px', textAlign: 'center', fontSize: '0.9rem' }}>
+          ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
+        </p>
       </form>
     </div>
   );

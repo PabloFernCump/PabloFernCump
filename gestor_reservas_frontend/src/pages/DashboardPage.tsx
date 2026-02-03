@@ -42,7 +42,14 @@ const DashboardPage = () => {
           <div className="action-buttons">
             {roleId === 2 ? (
               <>
-                <button className="btn-primary">Gestionar Usuarios</button>
+                {/* AÑADIDO: Ahora redirige a la gestión de usuarios */}
+                <button 
+                  className="btn-primary" 
+                  onClick={() => navigate('/admin/users')}
+                >
+                  Gestionar Usuarios
+                </button>
+                
                 {/* El Admin también debe poder ir a ver/configurar las pistas */}
                 <button className="btn-primary" onClick={() => navigate('/courts')}>Configurar Pistas</button>
               </>
