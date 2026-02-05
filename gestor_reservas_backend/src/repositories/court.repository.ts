@@ -38,19 +38,20 @@ export const getCourtById = async (id: number) => {
  * @param closing_time Hora de cierre.
  * @returns Resultado de la inserción.
  */
-export const createCourt = async (
+export const createCourt = async (   /*-> Función createCourt mejorada*/
   name: string,
   type: string,
   surface: string,
   opening_time: string,
-  closing_time: string
+  closing_time: string,
+  active: number // <--- se añade el estado de la pista
 ) => {
   // Usamos una consulta preparada con "?" para evitar Inyección SQL
   const [result] = await db.query(
     `INSERT INTO courts 
-     (name, type, surface, opening_time, closing_time)
-     VALUES (?, ?, ?, ?, ?)`,
-    [name, type, surface, opening_time, closing_time]
+     (name, type, surface, opening_time, closing_time, active)
+     VALUES (?, ?, ?, ?, ?, 1)`, // <--- Añadimos el 1 por defecto al crearla
+    [name, type, surface, opening_time, closing_time, active]
   );
   return result;
 };

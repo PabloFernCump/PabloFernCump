@@ -1,7 +1,7 @@
 //Rutas de pistas
 
 import { Router } from 'express';
-import { getCourts, createCourt, updateCourt } from '../controllers/court.controller';
+import { getCourts, getCourtById, createCourt, updateCourt } from '../controllers/court.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { adminOnly } from '../middlewares/role.middleware';
 
@@ -12,6 +12,17 @@ const router = Router();
  * @access Público (Cualquier usuario puede ver las pistas disponibles)
  */
 router.get('/', getCourts);
+
+/**
+ * RUTA NUEVA: Obtener una pista específica por ID
+ * @access Privado (Cualquier usuario logueado para ver detalles o Admin para editar)
+ * Se usa para cargar los datos en el formulario de edición.
+ */
+router.get(
+  '/:id', 
+  authMiddleware, 
+  getCourtById
+);
 
 /**
  * RUTA: Crear una nueva pista

@@ -1,8 +1,10 @@
 //Controlador de pistas
 
 import { Request, Response } from 'express';
+// IMPORTANTE: Cambiamos listCourts por getCourts
 import {
-  listCourts,
+  getCourts as getCourtsService, // Lo renombramos aquí para que no choque con el nombre de la función del controlador
+  getCourtDetails, // <--- NUEVO IMPORT: Para obtener una sola pista
   createNewCourt,
   updateExistingCourt
 } from '../services/court.service';
@@ -13,28 +15,41 @@ import {
  */
 export const getCourts = async (_req: Request, res: Response) => {
   try {
-    // Llama al servicio para obtener los datos de la BBDD
-    const courts = await listCourts();
-    // Responde con un status 200 (por defecto) y el array de pistas
+    // Llamamos a la función del servicio (que ahora se llama getCourts)
+    const courts = await getCourtsService();
     res.json(courts);
   } catch (error: any) {
+    // Si ves este error en la consola, es que algo falló dentro del servicio
+    console.error("Error en getCourts Controller:", error); 
     res.status(500).json({ message: 'Error al obtener las pistas' });
+  }
+};
+
+/**
+ * NUEVO CONTROLADOR: Obtener una sola pista por ID
+ * @route GET /api/courts/:id
+ * Útil para cargar los datos en el formulario de edición.
+ */
+export const getCourtById = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const court = await getCourtDetails(id);
+    res.json(court);
+  } catch (error: any) {
+    console.error("Error en getCourtById Controller:", error);
+    res.status(404).json({ message: error.message });
   }
 };
 
 /**
  * Controlador para crear una nueva pista.
  * @route POST /api/courts
- * @access Admin (ID 2)
  */
 export const createCourt = async (req: Request, res: Response) => {
   try {
-    // Pasa el cuerpo de la petición (body) al servicio para su validación e inserción
     const result = await createNewCourt(req.body);
-    // Retorna status 201 (Created) y el resultado de la operación
     res.status(201).json(result);
   } catch (error: any) {
-    // Si el servicio lanza un error (ej. faltan campos), capturamos el mensaje
     res.status(400).json({ message: error.message });
   }
 };
@@ -42,17 +57,13 @@ export const createCourt = async (req: Request, res: Response) => {
 /**
  * Controlador para actualizar los datos de una pista existente.
  * @route PUT /api/courts/:id
- * @access Admin (ID 2)
  */
 export const updateCourt = async (req: Request, res: Response) => {
   try {
-    // Extraemos el ID de los parámetros de la URL y lo convertimos a número
     const id = Number(req.params.id);
-    // Enviamos el ID y los nuevos datos al servicio
     const result = await updateExistingCourt(id, req.body);
     res.json(result);
   } catch (error: any) {
-    // Captura errores como "Pista no encontrada" definidos en el servicio
     res.status(400).json({ message: error.message });
   }
 };

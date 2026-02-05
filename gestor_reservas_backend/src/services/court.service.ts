@@ -8,11 +8,41 @@ import {
 } from '../repositories/court.repository';
 
 /**
+ * 1. DEFINICIÓN DE LA INTERFAZ
+ * Esto elimina el error de "la propiedad active no existe" en el frontend.
+ */
+export interface Court {
+  id: number;
+  name: string;
+  type: string;
+  surface: string;
+  opening_time: string;
+  closing_time: string;
+  active: number; // <--- Crucial para que funcione el filtro de disponibilidad
+  created_at?: string;
+}
+
+/**
  * Servicio para obtener el listado completo de pistas.
  * @returns Promesa con el array de pistas.
  */
-export const listCourts = async () => {
-  return await getAllCourts();
+export const getCourts = async (): Promise<Court[]> => {
+  // Tipamos el retorno como una promesa de array de Court
+  return await getAllCourts() as Court[];
+};
+
+/**
+ * Lógica para obtener los detalles de una pista por su ID.
+ * Útil para cargar el formulario de edición.
+ */
+export const getCourtDetails = async (id: number): Promise<Court> => {
+  const court = await getCourtById(id);
+
+  if (!court) {
+    throw new Error('Pista no encontrada');
+  }
+
+  return court as Court;
 };
 
 /**
@@ -20,7 +50,7 @@ export const listCourts = async () => {
  * @param data Datos provenientes del controlador.
  */
 export const createNewCourt = async (data: any) => {
-  const { name, type, surface, opening_time, closing_time } = data;
+  const { name, type, surface, opening_time, closing_time, active } = data;
 
   // Validación de negocio: No permitimos crear pistas sin datos esenciales.
   if (!name || !type) {
@@ -32,7 +62,8 @@ export const createNewCourt = async (data: any) => {
     type,
     surface,
     opening_time,
-    closing_time
+    closing_time,
+    active
   );
 };
 
