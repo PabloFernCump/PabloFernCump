@@ -7,6 +7,8 @@ import DashboardPage from '../pages/DashboardPage';
 import CourtsPage from '../pages/user/CourtsPage'; // Importamos la nueva página
 import AdminCourtsPage from '../pages/admin/AdminCourtsPage'; // <--- Nuevo Import
 import UserManagementPage from '../pages/admin/UserManagementPage'; // <--- 1. NUEVO IMPORT AQUÍ
+import EditCourtPage from '../pages/admin/EditCourtPage'; // <--- NUEVO IMPORT PARA EDICIÓN
+import AddCourtPage from '../pages/admin/AddCourtPage'; // <--- NUEVO IMPORT PARA CREACIÓN DE PISTAS
 import { useAuth } from '../auth/AuthContext';
 
 const AppRouter = () => {
@@ -44,6 +46,24 @@ const AppRouter = () => {
           path="/admin/users" 
           element={
             user && roleId === 2 ? <UserManagementPage /> : <Navigate to="/dashboard" />
+          } 
+        />
+
+        {/* 3. NUEVA RUTA DE EDICIÓN DE PISTAS (SOLO ADMIN) */}
+        {/* El parámetro :id permite recibir el identificador de la pista en la URL */}
+        <Route 
+          path="/admin/edit-court/:id" 
+          element={
+            user && roleId === 2 ? <EditCourtPage /> : <Navigate to="/dashboard" />
+          } 
+        />
+
+        {/* 4. NUEVA RUTA PARA AÑADIR PISTAS (SOLO ADMIN) */}
+        {/* Permite al administrador acceder al formulario de creación de nuevas instalaciones */}
+        <Route 
+          path="/admin/add-court" 
+          element={
+            user && roleId === 2 ? <AddCourtPage /> : <Navigate to="/dashboard" />
           } 
         />
 

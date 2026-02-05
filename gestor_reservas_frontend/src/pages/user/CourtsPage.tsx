@@ -22,7 +22,11 @@ const CourtsPage = () => {
     const fetchCourts = async () => {
       try {
         const data = await getCourts();
-        setCourts(data);
+        
+        // --- MEJORA: Filtramos para mostrar solo pistas activas al usuario ---
+        const activeCourts = data.filter((court: Court) => Number(court.active) === 1);
+        setCourts(activeCourts);
+        
       } catch (error) {
         console.error("Error al obtener pistas");
       } finally {
@@ -56,7 +60,8 @@ const CourtsPage = () => {
             <CourtCard 
               key={court.id} 
               court={court} 
-              isAdmin={false} // <--- CAMBIO: Aquí siempre es false, porque esta es la página de Usuario 
+              isAdmin={false} // <--- CAMBIO: Aquí siempre es false, 
+              // porque esta es la página de Usuario 
             />
           ))
         ) : (

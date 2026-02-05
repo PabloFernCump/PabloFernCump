@@ -1,0 +1,108 @@
+/* src/styles/form.css */
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Degradado azul de la imagen de registro */
+    background: linear-gradient(to right, #243b55, #141e30); 
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px; /* Tamaño similar a la tarjeta de registro */
+}
+
+.form-card h2 {
+    margin-bottom: 1.5rem;
+    color: #000;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+    text-transform: uppercase; /* Etiquetas en mayúsculas como en la imagen */
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e1e4e8;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #f4f7f9; /* Fondo gris claro de los inputs */
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: #fff;
+}
+
+.btn-submit {
+    width: 40%; /* Botón más pequeño y centrado como en la imagen */
+    display: block;
+    margin: 1.5rem auto 0.5rem auto;
+    padding: 10px;
+    background-color: #3498db; /* Azul del botón registrarse */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #2980b9;
+}
+
+.btn-cancel {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: #3498db;
+    font-size: 0.8rem;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para los mensajes de error */
+.error-message {
+    background-color: #fff5f5;
+    color: #c53030;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid #feb2b2;
+}

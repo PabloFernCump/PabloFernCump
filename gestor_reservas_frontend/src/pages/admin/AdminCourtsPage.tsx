@@ -44,10 +44,12 @@ const AdminCourtsPage = () => {
         {/* AQUÍ ES DONDE LO PONES: Usamos roleId para que desaparezca la advertencia */}
         <h2>Panel de Gestión de Pistas (Rol: {roleId})</h2>        
         <p>Como Administrador, puedes editar o añadir nuevas instalaciones.</p>
-        {/* Botón exclusivo para Admin que podrías programar después */}
-        {/* Botón exclusivo para Admin ahora con clase CSS */}
-            <button className="btn-primary btn-add-court">
-             + Añadir Nueva Pista
+        {/* Botón exclusivo para Admin ahora con clase CSS y navegación programada */}
+            <button 
+              className="btn-primary btn-add-court"
+              onClick={() => navigate('/admin/add-court')} // <--- ACCIÓN: Redirige al formulario de creación
+            >
+              + Añadir Nueva Pista
             </button>
       </header>
 
