@@ -5,8 +5,31 @@ import { AuthRequest } from '../middlewares/auth.middleware';
 import {
   createNewReservation,
   listUserReservations,
-  cancelUserReservation
+  cancelUserReservation,
+  getAvailableSlots // <--- Añadido para la lógica de disponibilidad
 } from '../services/reservation.service';
+
+/**
+ * NUEVO: Consulta los huecos libres según el deporte y la fecha seleccionada.
+ * GET /api/reservations/availability?sport=Padel&date=2024-10-10
+ */
+export const getAvailability = async (
+  req: AuthRequest,
+  res: Response
+) => {
+  try {
+    const { sport, date } = req.query;
+
+    if (!sport || !date) {
+      return res.status(400).json({ message: 'Faltan parámetros: sport y date' });
+    }
+
+    const availability = await getAvailableSlots(String(sport), String(date));
+    res.json(availability);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 /**
  * Gestiona la creación de una nueva reserva.

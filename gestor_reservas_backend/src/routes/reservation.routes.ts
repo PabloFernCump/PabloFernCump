@@ -4,11 +4,18 @@ import { Router } from 'express';
 import {
   createReservation,
   getMyReservations,
-  cancelReservation
+  cancelReservation,
+  getAvailability // <--- Añadido el nuevo controlador
 } from '../controllers/reservation.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
+
+/**
+ * NUEVA RUTA: Consultar disponibilidad de pistas.
+ * Permite al usuario ver qué horas están libres antes de reservar.
+ */
+router.get('/availability', authMiddleware, getAvailability);
 
 /**
  * Ruta para crear una reserva.

@@ -19,6 +19,21 @@ export const getReservationsByCourtAndDate = async (
 };
 
 /**
+ * NUEVO: Obtiene todas las reservas confirmadas para un tipo de deporte y fecha.
+ * Cruza la tabla de reservas con la de pistas para filtrar por deporte (Pádel/Tenis).
+ */
+export const getReservationsBySportAndDate = async (type: string, date: string) => {
+  const [rows] = await db.query(
+    `SELECT r.*, c.type 
+     FROM reservations r
+     JOIN courts c ON r.court_id = c.id
+     WHERE c.type = ? AND r.date = ? AND r.status = 'confirmed'`,
+    [type, date]
+  );
+  return rows;
+};
+
+/**
  * Inserta una nueva reserva en la base de datos.
  * Por defecto, el estado (status) suele ser 'confirmed' según la estructura de la tabla.
  */
@@ -64,8 +79,8 @@ export const cancelReservation = async (
 ) => {
     const [result]: any = await db.query(
      `UPDATE reservations 
-     SET status = 'cancelled'
-     WHERE id = ? AND user_id = ?`,
+      SET status = 'cancelled'
+      WHERE id = ? AND user_id = ?`,
     [reservationId, userId]
   );
   // Devolvemos el resultado para poder leer 'affectedRows' en el controlador
