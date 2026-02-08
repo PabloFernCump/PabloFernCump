@@ -1,0 +1,91 @@
+/* BookingStepSport.css */
+
+/* Contenedor principal de los pasos (Rescatado del antiguo) */
+.booking-step-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeInStep 0.5s ease-in-out;
+}
+
+/* Título de la sección (Estilo coherente con Login-box h2) */
+.booking-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50; /* Azul oscuro del Login */
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Grid para las tarjetas (Mantiene la flexibilidad del antiguo) */
+.sport-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap; /* Para que en móvil se pongan uno debajo de otro */
+    width: 100%;
+}
+
+/* Estilo base de la tarjeta (Fusión: Forma antigua + Colores Login) */
+.sport-card {
+    background: #f8f9fa; /* Fondo suave del Login */
+    border: 2px solid #eee;
+    border-radius: 12px; /* Redondeado igual al Login */
+    padding: 3rem 2rem;
+    width: 280px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Efectos Hover (Inspirado en el botón de Login pero para tarjetas) */
+.sport-card:hover {
+    background-color: white;
+    transform: translateY(-8px); /* Elevación más pronunciada */
+    border-color: #3498db; /* Azul vibrante del Login */
+    box-shadow: 0 15px 30px rgba(52, 152, 219, 0.15);
+}
+
+/* Iconos (Grandes como en el antiguo) */
+.sport-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.sport-card:hover .sport-icon {
+    transform: scale(1.1); /* El icono crece un poco al pasar el ratón */
+}
+
+/* Textos (Mismo estilo que h2 y p del login-box) */
+.sport-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.sport-desc {
+    color: #666; /* Gris del footer-text del login */
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Animación de entrada suave */
+@keyframes fadeInStep {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajuste para móviles */
+@media (max-width: 600px) {
+    .sport-card {
+        width: 100%;
+        padding: 2rem;
+    }
+}

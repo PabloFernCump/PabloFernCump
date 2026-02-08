@@ -1,0 +1,103 @@
+/* BookingStepDate.css */
+
+.date-step-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Título de la sección (Estilo Login-box h2) */
+.date-step-container h3 {
+    color: #2c3e50; /* Azul oscuro del Login */
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Personalización del Calendario (Fusión: Estructura antigua + Colores Login) */
+.react-calendar {
+    width: 100% !important;
+    max-width: 450px;
+    background: white !important; /* Fondo limpio del Login */
+    border: 1px solid #ddd !important;
+    border-radius: 12px !important; /* Redondeado igual al login-box */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important;
+}
+
+/* Navegación (Mes y flechas) */
+.react-calendar__navigation button {
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.react-calendar__navigation button:enabled:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* Color de los días de la semana */
+.react-calendar__month-view__weekdays {
+    color: #3498db; /* Azul vibrante */
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-decoration: none !important;
+}
+
+/* Botones de los días (Tiles) */
+.react-calendar__tile {
+    color: #2c3e50 !important; /* Texto oscuro */
+    border-radius: 6px !important;
+    margin: 2px 0;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+/* Efecto Hover (Como el hover de los inputs del Login) */
+.react-calendar__tile:enabled:hover {
+    background-color: #f0f7ff !important;
+    color: #3498db !important;
+}
+
+/* El día seleccionado (Como el botón de Acceso) */
+.react-calendar__tile--active {
+    background: #3498db !important; /* Azul del Login */
+    color: white !important;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+/* Días pasados o deshabilitados (Rescatado del antiguo) */
+.react-calendar__tile:disabled {
+    background-color: transparent !important;
+    color: #ccc !important; /* Gris suave para indicar que no se puede clicar */
+    cursor: not-allowed;
+}
+
+/* Botón de continuar (Si decides usar uno debajo del calendario) */
+.btn-continue {
+    margin-top: 1rem;
+    padding: 0.8rem 2.5rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-continue:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

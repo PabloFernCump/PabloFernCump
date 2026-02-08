@@ -9,6 +9,7 @@ import AdminCourtsPage from '../pages/admin/AdminCourtsPage'; // <--- Nuevo Impo
 import UserManagementPage from '../pages/admin/UserManagementPage'; // <--- 1. NUEVO IMPORT AQUÍ
 import EditCourtPage from '../pages/admin/EditCourtPage'; // <--- NUEVO IMPORT PARA EDICIÓN
 import AddCourtPage from '../pages/admin/AddCourtPage'; // <--- NUEVO IMPORT PARA CREACIÓN DE PISTAS
+import BookingPage from '../pages/user/BookingPage'; // <--- MI COMENTARIO: Importamos el nuevo flujo de reserva por pasos
 import { useAuth } from '../auth/AuthContext';
 
 const AppRouter = () => {
@@ -39,6 +40,13 @@ const AppRouter = () => {
               <Navigate to="/login" />
             )
           } 
+        />
+
+        {/* MI COMENTARIO: NUEVA RUTA PARA EL FLUJO DE RESERVA POR PASOS */}
+        {/* Esta es la ruta que tienes que visitar para ver el Deporte -> Fecha -> Hora */}
+        <Route 
+          path="/reservar" 
+          element={user ? <BookingPage /> : <Navigate to="/login" />} 
         />
 
         {/* 2. NUEVA RUTA DE GESTIÓN DE USUARIOS */}

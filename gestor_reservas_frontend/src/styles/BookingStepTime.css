@@ -1,0 +1,64 @@
+/* BookingStepTime.css */
+
+/* Contenedor de la rejilla (Mantiene la flexibilidad del antiguo) */
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Botón de hora base (Fusión: Estructura antigua + Estilo Botón Login) */
+.time-button {
+    padding: 0.8rem;
+    background-color: #f8f9fa; /* Fondo claro inicial */
+    border: 1px solid #ddd;    /* Borde suave como los inputs */
+    color: #2c3e50;            /* Texto oscuro del Login */
+    font-weight: bold;
+    border-radius: 6px;        /* Redondeado exacto del login-box */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Estado: Disponible y Hover (Inspirado en el hover del login) */
+.time-button:not(:disabled):hover {
+    border-color: #3498db;
+    background-color: white;
+    color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+}
+
+/* Estado: Seleccionado (Como el botón de acceso cuando está activo) */
+.time-button.selected {
+    background-color: #3498db !important;
+    color: white !important;
+    border-color: #2980b9;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
+}
+
+/* Estado: Agotado / No disponible (Estilo neutro del login) */
+.time-button:disabled {
+    background-color: #eee;
+    color: #bbb;
+    cursor: not-allowed;
+    border: 1px solid #ddd;
+    text-decoration: line-through;
+}
+
+/* Mensaje de carga o error */
+.loading-text {
+    color: #3498db;
+    text-align: center;
+    font-weight: bold;
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

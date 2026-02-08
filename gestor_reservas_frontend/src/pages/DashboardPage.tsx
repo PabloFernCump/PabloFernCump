@@ -54,8 +54,9 @@ const DashboardPage = () => {
                 <button className="btn-primary" onClick={() => navigate('/courts')}>Configurar Pistas</button>
               </>
             ) : (
-              /* El usuario va a la misma página para ver y elegir pista */
-              <button className="btn-primary" onClick={() => navigate('/courts')}>Nueva Reserva</button>
+              /* MI COMENTARIO: Actualizamos la navegación del usuario al nuevo flujo por pasos */
+              /* <button className="btn-primary" onClick={() => navigate('/courts')}>Nueva Reserva</button> */
+              <button className="btn-primary" onClick={() => navigate('/reservar')}>Nueva Reserva</button>
             )}
           </div>
 
