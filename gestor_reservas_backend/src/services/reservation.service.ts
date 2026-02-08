@@ -18,7 +18,9 @@ export const getAvailableSlots = async (sport: string, date: string) => {
   // 1. Obtener todas las pistas de ese deporte que estén activas
   // Usamos "as any[]" para que TS permita usar .filter()
   const allCourts = await getCourts() as any[];
-  const sportCourts = allCourts.filter((c: any) => c.type === sport && c.active === 1);
+  const sportCourts = allCourts.filter((c: any) => 
+  c.type.toLowerCase() === sport.toLowerCase() && Number(c.active) === 1
+);
 
   if (sportCourts.length === 0) return [];
 

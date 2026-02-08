@@ -27,7 +27,7 @@ export const getReservationsBySportAndDate = async (type: string, date: string) 
     `SELECT r.*, c.type 
      FROM reservations r
      JOIN courts c ON r.court_id = c.id
-     WHERE c.type = ? AND r.date = ? AND r.status = 'confirmed'`,
+     WHERE LOWER(c.type) = LOWER(?) AND r.date = ? AND r.status = 'confirmed'`,
     [type, date]
   );
   return rows;
