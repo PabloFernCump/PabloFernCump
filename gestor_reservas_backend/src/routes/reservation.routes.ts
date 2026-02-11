@@ -24,10 +24,10 @@ router.get('/availability', authMiddleware, getAvailability);
 router.post('/', authMiddleware, createReservation);
 
 /**
- * Ruta para que un usuario consulte sus propias reservas.
- * Se usa '/mine' para diferenciarlo de una posible ruta administrativa.
+ * RUTA ACTUALIZADA PARA COINCIDIR CON EL FRONTEND
+ * Antes era '/mine', ahora es '/my-reservations' para que el fetch del frontend funcione.
  */
-router.get('/mine', authMiddleware, getMyReservations);
+router.get('/my-reservations', authMiddleware, getMyReservations);
 
 /**
  * Ruta para cancelar una reserva.

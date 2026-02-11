@@ -59,11 +59,18 @@ export const createReservation = async (
  */
 export const getUserReservations = async (userId: number) => {
   const [rows] = await db.query(
-    `SELECT r.*, c.name AS court_name 
+    `SELECT 
+        r.id, 
+        r.date, 
+        r.start_time, 
+        r.end_time, 
+        r.status,
+        c.name AS court_name,
+        c.type AS court_type
      FROM reservations r
-     JOIN courts c ON c.id = r.court_id
+     JOIN courts c ON r.court_id = c.id
      WHERE r.user_id = ?
-     ORDER BY r.date DESC`,
+     ORDER BY r.date DESC, r.start_time DESC`,
     [userId]
   );
   return rows;
