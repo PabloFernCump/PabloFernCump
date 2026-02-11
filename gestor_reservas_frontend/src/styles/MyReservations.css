@@ -1,0 +1,88 @@
+/* MyReservations.css */
+
+.my-reservations-container {
+    width: 100%;
+    min-height: 100vh; /* Fuerza a que ocupe al menos el 100% de la altura de la ventana */
+    
+    /* Degradado del login aplicado a toda la superficie */
+    background: radial-gradient(circle at center, #4b8cb8 0%, #2c5270 100%);
+    background-attachment: fixed; /* El fondo no se mueve al hacer scroll */
+    
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.my-reservations-container h1 {
+    color: white;
+    margin-bottom: 2.5rem;
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.reservations-list {
+    width: 100%;
+    max-width: 800px; /* Limita el ancho de las tarjetas para que no se estiren demasiado */
+}
+
+.reservation-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: none;
+    border-left: 8px solid #3498db;
+    transition: transform 0.3s ease;
+}
+
+.reservation-card:hover {
+    transform: scale(1.02);
+}
+
+/* Estilos de información interna (Manteniendo tu estructura) */
+.res-info h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.4rem;
+}
+
+.res-type {
+    color: #3498db;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+/* Botones y Badges */
+.status-badge.confirmed {
+    background: #e1f7e7;
+    color: #27ae60;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn-cancel {
+    border: 1.5px solid #ff4d4d;
+    color: #ff4d4d;
+    background: transparent;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cancel:hover {
+    background: #ff4d4d;
+    color: white;
+}

@@ -54,13 +54,27 @@ const DashboardPage = () => {
                 <button className="btn-primary" onClick={() => navigate('/courts')}>Configurar Pistas</button>
               </>
             ) : (
-              /* MI COMENTARIO: Actualizamos la navegación del usuario al nuevo flujo por pasos */
-              /* <button className="btn-primary" onClick={() => navigate('/courts')}>Nueva Reserva</button> */
-              <button className="btn-primary" onClick={() => navigate('/reservar')}>Nueva Reserva</button>
+              /* SECCIÓN DE USUARIO: Añadimos acceso a reserva y al nuevo historial */
+              <>
+                <button 
+                  className="btn-primary" 
+                  onClick={() => navigate('/reservar')}
+                >
+                  Nueva Reserva
+                </button>
+
+                {/* NUEVO BOTÓN: Permite al usuario acceder directamente a su historial de reservas */}
+                <button 
+                  className="btn-primary" 
+                  onClick={() => navigate('/mis-reservas')}
+                >
+                  Mis Reservas
+                </button>
+              </>
             )}
           </div>
 
-          <p className="text-secondary">Próximamente: Listado de reservas en tiempo real.</p>
+          <p className="text-secondary">Gestiona tus pistas de forma rápida y sencilla.</p>
         </div>
       </main>
     </div>

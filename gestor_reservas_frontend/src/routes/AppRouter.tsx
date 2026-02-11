@@ -10,6 +10,7 @@ import UserManagementPage from '../pages/admin/UserManagementPage'; // <--- 1. N
 import EditCourtPage from '../pages/admin/EditCourtPage'; // <--- NUEVO IMPORT PARA EDICIÓN
 import AddCourtPage from '../pages/admin/AddCourtPage'; // <--- NUEVO IMPORT PARA CREACIÓN DE PISTAS
 import BookingPage from '../pages/user/BookingPage'; // <--- MI COMENTARIO: Importamos el nuevo flujo de reserva por pasos
+import MyReservations from '../pages/user/MyReservations'; // <--- NUEVO IMPORT: Página de historial de reservas
 import { useAuth } from '../auth/AuthContext';
 
 const AppRouter = () => {
@@ -47,6 +48,13 @@ const AppRouter = () => {
         <Route 
           path="/reservar" 
           element={user ? <BookingPage /> : <Navigate to="/login" />} 
+        />
+
+        {/* NUEVA RUTA: HISTORIAL DE RESERVAS DEL USUARIO */}
+        {/* Permite al usuario ver sus reservas activas/pasadas y cancelarlas */}
+        <Route 
+          path="/mis-reservas" 
+          element={user ? <MyReservations /> : <Navigate to="/login" />} 
         />
 
         {/* 2. NUEVA RUTA DE GESTIÓN DE USUARIOS */}
