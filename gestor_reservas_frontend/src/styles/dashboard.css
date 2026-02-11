@@ -1,21 +1,22 @@
-/*Estilos del Dashboard Page*/
+/* dashboard.css - Diseño Unificado y Limpio */
 
-/* Contenedor principal del Dashboard */
 .dashboard-container {
   min-height: 100vh;
-  background-color: #f4f7f6; /* Un gris muy claro para el fondo */
+  /* Fondo degradado corporativo */
+  background: radial-gradient(circle at center, #4b8cb8 0%, #2c5270 100%);
+  background-attachment: fixed;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Barra de navegación superior */
 .dashboard-nav {
-  background-color: #2c3e50;
+  background-color: rgba(0, 0, 0, 0.2); /* Fondo oscuro semitransparente */
   color: white;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .dashboard-nav h1 {
@@ -23,81 +24,113 @@
   font-size: 1.5rem;
 }
 
-/* Contenido central */
 .dashboard-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
-.welcome-card {
+/* Contenedor blanco centralizado igual que image_c44a19.jpg */
+.welcome-section {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 850px;
+  width: 100%;
+  text-align: center;
 }
 
-/* Botón de cerrar sesión */
+.welcome-section h2 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Grid para Nueva Reserva y Mis Reservas */
+.dashboard-cards-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+/* Estilo de la caja (Card) */
+.dash-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 2rem;
+  width: 260px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dash-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  border-color: #3498db;
+  background-color: white;
+}
+
+.card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.card-info h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.card-info p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+/* Ocultamos la flecha lateral para que sea minimalista */
+.card-arrow {
+  display: none;
+}
+
+/* Aseguramos que el contenedor de las acciones tenga una separación clara */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Aumentamos el espacio entre el badge y el botón */
+}
+
+/* Opcional: añadimos un poco más de margen al badge para asegurar el hueco */
+.role-badge {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-right: 10px; /* Pequeño margen extra de seguridad */
+}
+
 .btn-logout {
   background-color: #e74c3c;
   color: white;
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 5px;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.2s;
 }
 
 .btn-logout:hover {
   background-color: #c0392b;
 }
-
-.text-secondary {
-  color: #666;
-  margin-top: 1rem;
-  font-style: italic;
-}
-
-/* Nueva etiqueta para mostrar el rol al lado del botón */
-.role-badge {
-  background-color: #34495e;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-right: 1rem;
-}
-
-/* Color especial si es Admin para que resalte */
-.role-admin {
-  border-left: 4px solid #f1c40f; /* Un toque dorado para el admin */
-}
-
-/* Contenedor para botones de acción */
-.action-buttons {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 10px;
-}
-
-.btn-primary {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: #2980b9;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-

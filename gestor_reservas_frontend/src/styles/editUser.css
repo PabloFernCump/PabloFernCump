@@ -1,0 +1,64 @@
+/* src/styles/editUser.css */
+.edit-user-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.edit-user-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.edit-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-field label {
+    color: #2c5270;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-field input, 
+.form-field select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-field input:focus {
+    border-color: #3498db;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}

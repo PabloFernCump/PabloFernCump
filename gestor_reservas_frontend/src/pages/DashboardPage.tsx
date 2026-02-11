@@ -1,13 +1,12 @@
-//Primera pagina privada (inteligente por roles)
+// Primera pagina privada (inteligente por roles)
 
-import { useNavigate } from 'react-router-dom'; // <--- Añadimos el hook de navegación
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
-import '../styles/dashboard.css'; // <--- Aqui se importan los nuevos estilos
+import '../styles/dashboard.css';
 
 const DashboardPage = () => {
-  // Extraemos logout y roleId (1=User, 2=Admin) del contexto
   const { logout, roleId } = useAuth();
-  const navigate = useNavigate(); // <--- Inicializamos el navegador
+  const navigate = useNavigate();
 
   return (
     <div className="dashboard-container">
@@ -15,7 +14,6 @@ const DashboardPage = () => {
       <nav className="dashboard-nav">
         <h1>Gestor de Reservas</h1>
         <div>
-          {/* Mostramos el rol usando la nueva clase CSS */}
           <span className="role-badge">
             {roleId === 2 ? 'Modo: Administrador' : 'Modo: Usuario'}
           </span>
@@ -25,56 +23,65 @@ const DashboardPage = () => {
         </div>
       </nav>
 
-      {/* Contenido principal que cambia según el rol */}
+      {/* Contenido principal */}
       <main className="dashboard-content">
-        <div className={`welcome-card ${roleId === 2 ? 'role-admin' : ''}`}>
+        <div className={`welcome-section ${roleId === 2 ? 'role-admin' : ''}`}>
           <h2>{roleId === 2 ? 'Panel de Control (ADMIN)' : 'Mi Área Personal'}</h2>
           
           <p>
             {roleId === 2 
               ? 'Has iniciado sesión como administrador. Tienes acceso total a las pistas y reservas.' 
-              : 'Has iniciado sesión correctamente. Aquí puedes ver tus citas de Padel y Tenis.'}
+              : 'Has iniciado sesión correctamente. Aquí puedes gestionar tus pistas de forma rápida.'}
           </p>
 
-          <hr />
-
-          {/* Renderizado condicional de herramientas según role_id */}
-          <div className="action-buttons">
+          {/* SECCIÓN DE CAJAS (Cards) sustituyendo a los botones antiguos */}
+          <div className="dashboard-cards-grid">
             {roleId === 2 ? (
               <>
-                {/* AÑADIDO: Ahora redirige a la gestión de usuarios */}
-                <button 
-                  className="btn-primary" 
-                  onClick={() => navigate('/admin/users')}
-                >
-                  Gestionar Usuarios
-                </button>
+                {/* CAJAS PARA ADMIN */}
+                <div className="dash-card" onClick={() => navigate('/admin/users')}>
+                  <div className="card-icon">👥</div>
+                  <div className="card-info">
+                    <h3>Gestionar Usuarios</h3>
+                    <p>Administra cuentas y permisos del sistema.</p>
+                  </div>
+                  <div className="card-arrow">→</div>
+                </div>
                 
-                {/* El Admin también debe poder ir a ver/configurar las pistas */}
-                <button className="btn-primary" onClick={() => navigate('/courts')}>Configurar Pistas</button>
+                <div className="dash-card" onClick={() => navigate('/courts')}>
+                  <div className="card-icon">⚙️</div>
+                  <div className="card-info">
+                    <h3>Configurar Pistas</h3>
+                    <p>Añade o edita las pistas disponibles.</p>
+                  </div>
+                  <div className="card-arrow">→</div>
+                </div>
               </>
             ) : (
-              /* SECCIÓN DE USUARIO: Añadimos acceso a reserva y al nuevo historial */
               <>
-                <button 
-                  className="btn-primary" 
-                  onClick={() => navigate('/reservar')}
-                >
-                  Nueva Reserva
-                </button>
+                {/* CAJAS PARA USUARIO */}
+                <div className="dash-card" onClick={() => navigate('/reservar')}>
+                  <div className="card-icon">🎾</div>
+                  <div className="card-info">
+                    <h3>Nueva Reserva</h3>
+                    <p>Reserva tu pista de Tenis o Pádel ahora.</p>
+                  </div>
+                  <div className="card-arrow">→</div>
+                </div>
 
-                {/* NUEVO BOTÓN: Permite al usuario acceder directamente a su historial de reservas */}
-                <button 
-                  className="btn-primary" 
-                  onClick={() => navigate('/mis-reservas')}
-                >
-                  Mis Reservas
-                </button>
+                <div className="dash-card" onClick={() => navigate('/mis-reservas')}>
+                  <div className="card-icon">📅</div>
+                  <div className="card-info">
+                    <h3>Mis Reservas</h3>
+                    <p>Consulta y gestiona tus próximos partidos.</p>
+                  </div>
+                  <div className="card-arrow">→</div>
+                </div>
               </>
             )}
           </div>
 
-          <p className="text-secondary">Gestiona tus pistas de forma rápida y sencilla.</p>
+          <p className="text-secondary">Selecciona una opción para comenzar.</p>
         </div>
       </main>
     </div>

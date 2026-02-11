@@ -1,94 +1,134 @@
-/* Contenedor principal */
+/* userManagement.css - Estilo Profesional Centrado */
+
 .admin-management-container {
-  padding: 20px;
-  background-color: #f4f7f6;
   min-height: 100vh;
+  background: radial-gradient(circle at center, #4b8cb8 0%, #2c5270 100%);
+  background-attachment: fixed;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Navegación */
+/* Navegación: El título manda en el centro */
 .management-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Centra el contenido horizontalmente */
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 2.5rem;
+  position: relative;     /* Para anclar el botón Volver */
+  min-height: 60px;
 }
 
+.management-nav h2 {
+  color: rgb(255, 255, 255);
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  margin: 0;
+  text-align: center;
+}
+
+/* Botón Volver anclado a la izquierda sin mover el título */
 .btn-back-nav {
-  padding: 8px 15px;
-  background: #eee;
-  border: none;
-  border-radius: 5px;
+  position: absolute;
+  left: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid white;
+  padding: 8px 18px;
+  border-radius: 8px;
+  color: white;
   cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
 }
 
-/* Tarjeta de la tabla */
+.btn-back-nav:hover {
+  background: white;
+  color: #2c5270;
+}
+
+/* TARJETA BLANCA (Indispensable para que quede bien) */
 .table-card {
   background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  max-width: 1100px;
+  margin: 0 auto; /* Centra la tarjeta en la pantalla */
 }
 
+/* Encabezado interno de la tarjeta centrado */
 .table-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; 
   align-items: center;
-  margin-bottom: 15px;
+  gap: 1.2rem;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 20px;
+}
+
+.table-header h3 {
+  color: #2c5270;
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
 .btn-add-user {
-  background-color: #2c3e50;
+  background-color: #3498db;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 25px;
   border: none;
-  border-radius: 6px;
+  border-radius: 50px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+  transition: transform 0.2s;
 }
 
-/* Estilos de la tabla */
-.table-responsive {
-  overflow-x: auto;
+.btn-add-user:hover {
+  transform: scale(1.05);
+  background-color: #2980b9;
 }
 
+/* Estilos de la tabla para que se vea limpia */
 .user-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
 .user-table th {
+  background-color: #f8fafc;
+  padding: 15px;
+  color: #64748b;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
   text-align: left;
-  padding: 12px;
-  border-bottom: 2px solid #eee;
-  color: #666;
 }
 
 .user-table td {
-  padding: 12px;
-  border-bottom: 1px solid #f9f9f9;
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
 }
 
-.empty-row {
-  text-align: center;
-  padding: 40px !important;
-  color: #999;
-}
-
-/* Badges de rol */
+/* Badges y botones de acción */
 .badge {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.85em;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 700;
 }
-
-.badge.admin { background: #ffeaa7; color: #d63031; }
-.badge.user { background: #dfe6e9; color: #2d3436; }
+.badge.admin { background: #fef3c7; color: #92400e; }
+.badge.user { background: #e0f2fe; color: #075985; }
 
 .btn-edit {
   color: #3498db;
-  background: none;
+  font-weight: 600;
+  background: #f0f7ff;
   border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  text-decoration: underline;
 }

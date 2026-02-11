@@ -1,11 +1,13 @@
 //Pagina donde el usuario podra ver sus reservas
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // <--- NUEVO IMPORT: Para poder navegar entre páginas
 import '../../styles/MyReservations.css';
 
 const MyReservations: React.FC = () => {
     const [reservations, setReservations] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate(); // <--- NUEVA CONSTANTE: Inicializamos el navegador
 
     useEffect(() => {
         fetchMyReservations();
@@ -29,18 +31,28 @@ const MyReservations: React.FC = () => {
         if (!window.confirm("¿Estás seguro de que quieres cancelar esta reserva?")) return;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/reservations/${id}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            const response = await fetch(`http://localhost:3000/api/reservations/${id}/cancel`, {
+                method: 'PUT', // <--- DEBE SER PUT PARA COINCIDIR CON EL BACKEND
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                }
             });
+
             if (response.ok) {
-                // Actualizamos la lista localmente
-                setReservations(reservations.map(res => 
+                // Actualizamos el estado local para que la tarjeta se marque como cancelada
+                setReservations(prev => prev.map(res =>
                     res.id === id ? { ...res, status: 'cancelled' } : res
                 ));
+                alert("Reserva cancelada con éxito");
+            } else {
+                // Si el backend responde pero con error (ej: 404 o 500)
+                const errorData = await response.json();
+                alert(`Error: ${errorData.message || "No se pudo cancelar"}`);
             }
         } catch (error) {
-            alert("No se pudo cancelar la reserva");
+            console.error("Error en la petición:", error);
+            alert("Fallo de conexión con el servidor");
         }
     };
 
@@ -48,6 +60,11 @@ const MyReservations: React.FC = () => {
 
     return (
         <div className="my-reservations-container">
+            {/* NUEVO BOTÓN: Permite al usuario regresar al Dashboard principal */}
+            <button onClick={() => navigate('/dashboard')} className="btn-back">
+                ← Volver al Panel
+            </button>
+
             <h1>Mis Reservas</h1>
             <div className="reservations-list">
                 {reservations.length === 0 ? (

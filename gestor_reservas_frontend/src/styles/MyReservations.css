@@ -86,3 +86,22 @@
     background: #ff4d4d;
     color: white;
 }
+
+.btn-back {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.2); /* Transparente para ver el fondo azul */
+    border: 1px solid white;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: white;
+    color: #2c5270; /* Color oscuro del degradado */
+    transform: translateX(-5px); /* Efecto visual de retroceso */
+}
