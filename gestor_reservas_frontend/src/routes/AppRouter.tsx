@@ -10,6 +10,7 @@ import UserManagementPage from '../pages/admin/UserManagementPage'; // <--- 1. N
 import EditUserPage from '../pages/admin/EditUserPage'; // <--- NUEVO IMPORT PARA boton editar usuarios desde Admin
 import EditCourtPage from '../pages/admin/EditCourtPage'; // <--- NUEVO IMPORT PARA EDICIÓN
 import AddCourtPage from '../pages/admin/AddCourtPage'; // <--- NUEVO IMPORT PARA CREACIÓN DE PISTAS
+import StatisticsPage from '../pages/admin/StatisticsPage';
 import BookingPage from '../pages/user/BookingPage'; // <--- MI COMENTARIO: Importamos el nuevo flujo de reserva por pasos
 import MyReservations from '../pages/user/MyReservations'; // <--- NUEVO IMPORT: Página de historial de reservas
 import { useAuth } from '../auth/AuthContext';
@@ -90,6 +91,13 @@ const AppRouter = () => {
           element={
             user && roleId === 2 ? <AddCourtPage /> : <Navigate to="/dashboard" />
           }
+        />
+
+        {/* 5. NUEVA RUTA PARA VER LAS ESTADÍSTICAS (SOLO ADMIN) */}
+        {/* Permite al administrador acceder ver las estadísticas del club */}
+        <Route
+          path="/admin/statistics"
+          element={user && roleId === 2 ? <StatisticsPage /> : <Navigate to="/dashboard" />}
         />
 
         {/* Redirección por defecto */}

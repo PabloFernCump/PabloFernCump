@@ -32,13 +32,14 @@
   padding: 2rem;
 }
 
-/* Contenedor blanco centralizado igual que image_c44a19.jpg */
+/* Contenedor blanco centralizado */
 .welcome-section {
   background: white;
   padding: 3rem;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  max-width: 850px;
+  /* MODIFICADO: Aumentamos a 1000px para que las 3 tarjetas quepan en línea */
+  max-width: 1000px; 
   width: 100%;
   text-align: center;
 }
@@ -53,9 +54,10 @@
 .dashboard-cards-grid {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem; /* MODIFICADO: Reducimos un poco el gap para ganar espacio horizontal */
   margin-top: 2.5rem;
-  flex-wrap: wrap;
+  /* MODIFICADO: Cambiamos a nowrap para forzar la línea única en escritorio */
+  flex-wrap: nowrap; 
 }
 
 /* Estilo de la caja (Card) */
@@ -64,7 +66,8 @@
   border: 1px solid #e2e8f0;
   border-radius: 15px;
   padding: 2rem;
-  width: 260px;
+  /* MODIFICADO: Ajustamos el ancho para que la suma de las 3 + gap no exceda el contenedor */
+  width: 280px; 
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -87,13 +90,13 @@
 .card-info h3 {
   margin: 0;
   color: #1e293b;
-  font-size: 1.3rem;
+  font-size: 1.1rem; /* MODIFICADO: Bajamos un pelín el tamaño para evitar saltos de línea en el título */
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .card-info p {
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* MODIFICADO: Ajuste sutil de lectura */
   color: #64748b;
   margin-top: 10px;
   line-height: 1.4;
@@ -133,4 +136,15 @@
 
 .btn-logout:hover {
   background-color: #c0392b;
+}
+
+/* AÑADIDO: Media query para que en móviles sí puedan saltar de línea y no se rompa el diseño */
+@media (max-width: 900px) {
+  .dashboard-cards-grid {
+    flex-wrap: wrap;
+  }
+  .dash-card {
+    width: 100%;
+    max-width: 300px;
+  }
 }

@@ -27,10 +27,10 @@ const DashboardPage = () => {
       <main className="dashboard-content">
         <div className={`welcome-section ${roleId === 2 ? 'role-admin' : ''}`}>
           <h2>{roleId === 2 ? 'Panel de Control (ADMIN)' : 'Mi Área Personal'}</h2>
-          
+
           <p>
-            {roleId === 2 
-              ? 'Has iniciado sesión como administrador. Tienes acceso total a las pistas y reservas.' 
+            {roleId === 2
+              ? 'Has iniciado sesión como administrador. Tienes acceso total a las pistas y reservas.'
               : 'Has iniciado sesión correctamente. Aquí puedes gestionar tus pistas de forma rápida.'}
           </p>
 
@@ -47,12 +47,21 @@ const DashboardPage = () => {
                   </div>
                   <div className="card-arrow">→</div>
                 </div>
-                
+
                 <div className="dash-card" onClick={() => navigate('/courts')}>
                   <div className="card-icon">⚙️</div>
                   <div className="card-info">
                     <h3>Configurar Pistas</h3>
                     <p>Añade o edita las pistas disponibles.</p>
+                  </div>
+                  <div className="card-arrow">→</div>
+                </div>
+
+                <div className="dash-card" onClick={() => navigate('/admin/statistics')}>
+                  <div className="card-icon">📊</div>
+                  <div className="card-info">
+                    <h3>Estadísticas Globales</h3>
+                    <p>Visualiza el uso de las pistas y actividad de los socios.</p>
                   </div>
                   <div className="card-arrow">→</div>
                 </div>

@@ -1,13 +1,10 @@
-/* MyReservations.css */
+/* MyReservations.css - Diseño Organizado por Secciones */
 
 .my-reservations-container {
     width: 100%;
-    min-height: 100vh; /* Fuerza a que ocupe al menos el 100% de la altura de la ventana */
-    
-    /* Degradado del login aplicado a toda la superficie */
+    min-height: 100vh;
     background: radial-gradient(circle at center, #4b8cb8 0%, #2c5270 100%);
-    background-attachment: fixed; /* El fondo no se mueve al hacer scroll */
-    
+    background-attachment: fixed;
     padding: 3rem 1rem;
     display: flex;
     flex-direction: column;
@@ -24,72 +21,161 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.reservations-list {
+/* --- NUEVAS SECCIONES --- */
+
+.reservations-section {
     width: 100%;
-    max-width: 800px; /* Limita el ancho de las tarjetas para que no se estiren demasiado */
+    max-width: 900px; /* Un poco más ancho para el grid */
+    margin-bottom: 3rem;
 }
+
+.section-title {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.5rem;
+    text-align: left;
+}
+
+/* Grid para las tarjetas próximas */
+.reservations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- ESTILO DE LAS TARJETAS PRÓXIMAS (Mantenido y Mejorado) --- */
 
 .reservation-card {
     background: white;
     border-radius: 15px;
-    padding: 1.5rem 2rem;
-    margin-bottom: 1.5rem;
+    padding: 1.5rem;
     display: flex;
-    justify-content: space-between;
+    gap: 1.2rem;
     align-items: center;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border: none;
     border-left: 8px solid #3498db;
     transition: transform 0.3s ease;
 }
 
 .reservation-card:hover {
-    transform: scale(1.02);
+    transform: translateY(-5px);
 }
 
-/* Estilos de información interna (Manteniendo tu estructura) */
+/* Badge de fecha tipo calendario */
+.res-date-badge {
+    background: #f0f4f8;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.res-date-badge .day {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #2c3e50;
+}
+
+.res-date-badge .month {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #3498db;
+}
+
 .res-info h3 {
     margin: 0;
     color: #2c3e50;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
-.res-type {
-    color: #3498db;
-    font-size: 0.9rem;
+.res-time {
+    color: #64748b;
+    font-weight: 600;
+    margin: 4px 0;
+}
+
+.res-type-label {
+    font-size: 0.75rem;
     font-weight: bold;
     text-transform: uppercase;
-    margin-top: 5px;
+    color: #3498db;
+    background: #e1f0fa;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
 }
 
-/* Botones y Badges */
-.status-badge.confirmed {
-    background: #e1f7e7;
-    color: #27ae60;
-    padding: 6px 12px;
-    border-radius: 8px;
+/* --- SECCIÓN HISTORIAL (LISTA COMPACTA) --- */
+
+.history-list {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    /* Añadimos esta línea para compatibilidad con Safari y quitar el aviso */
+    -webkit-backdrop-filter: blur(5px); 
+    backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.history-item.cancelled {
+    opacity: 0.6;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.history-info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.history-date { font-weight: bold; width: 90px; }
+.history-court { font-weight: 500; }
+.history-time { color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; }
+
+.history-status {
+    font-size: 0.75rem;
     font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
 }
 
-.btn-cancel {
+.history-status.confirmed { background: #27ae60; color: white; }
+.history-status.cancelled { background: #e74c3c; color: white; }
+
+/* --- BOTONES (Tus estilos originales) --- */
+
+.btn-cancel-card {
     border: 1.5px solid #ff4d4d;
     color: #ff4d4d;
-    background: transparent;
-    padding: 8px 18px;
+    background: white;
+    padding: 6px 14px;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.btn-cancel:hover {
+.btn-cancel-card:hover {
     background: #ff4d4d;
     color: white;
 }
 
 .btn-back {
     align-self: flex-start;
-    background: rgba(255, 255, 255, 0.2); /* Transparente para ver el fondo azul */
+    background: rgba(255, 255, 255, 0.2);
     border: 1px solid white;
     color: white;
     padding: 10px 20px;
@@ -102,6 +188,34 @@
 
 .btn-back:hover {
     background: white;
-    color: #2c5270; /* Color oscuro del degradado */
-    transform: translateX(-5px); /* Efecto visual de retroceso */
+    color: #2c5270;
+    transform: translateX(-5px);
+}
+
+.no-data {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    text-align: left;
+}
+
+/* Estilo base para todas las etiquetas de deporte */
+.res-type-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Color específico para PÁDEL (Azul) */
+.res-type-label.padel {
+    color: #3498db;
+    background: #e1f0fa;
+}
+
+/* Color específico para TENIS (Verde) */
+.res-type-label.tenis {
+    color: #27ae60;
+    background: #e4f7e8;
 }
