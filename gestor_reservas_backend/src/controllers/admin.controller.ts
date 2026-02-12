@@ -6,6 +6,7 @@ import {
   cancelReservationAsAdmin
 } from '../services/admin.service';
 import * as userRepository from '../repositories/user.repository'; // Importamos el repositorio
+import * as adminRepository from '../repositories/admin.repository'; //Importo el repositorio para traer las estadisticas
 
 /**
  * Obtiene el listado global de reservas para el panel de administración.
@@ -121,5 +122,30 @@ export const deleteUserInfo = async (req: Request, res: Response) => {
     res.json({ message: 'Usuario eliminado del sistema con éxito' });
   } catch (error: any) {
     res.status(500).json({ message: 'Error al intentar eliminar el usuario' });
+  }
+};
+
+/**
+ * Obtiene todos los datos para el panel de estadísticas (KPIs y Gráficos)
+ */
+export const getDashboardStats = async (req: Request, res: Response) => {
+  try {
+    // Usamos adminRepository para las consultas de estadísticas
+    const [dailyData, sportData, globalKPIs, upcomingData] = await Promise.all([
+      adminRepository.getWeeklyStats(),      
+      adminRepository.getReservationsBySport(), 
+      adminRepository.getGlobalCounts(),
+      adminRepository.getUpcomingStats()       
+    ]);
+
+    res.json({
+      dailyData,
+      sportData,
+      globalKPIs,
+      upcomingData
+    });
+  } catch (error: any) {
+    console.error("Error al obtener estadísticas:", error);
+    res.status(500).json({ message: 'Error al generar el informe' });
   }
 };

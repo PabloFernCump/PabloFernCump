@@ -7,7 +7,8 @@ import {
   getAllUsers, // <--- 1. Importamos la nueva función
   getUserById,      // <--- IMPORTADO: Obtener un socio por ID
   updateUserInfo,   // <--- IMPORTADO: Actualizar datos del socio
-  deleteUserInfo    // <--- IMPORTADO: Eliminar socio
+  deleteUserInfo,    // <--- IMPORTADO: Eliminar socio
+  getDashboardStats    // <--- IMPORTADO: Estadisiticas de Admin
 } from '../controllers/admin.controller';
 
 // Importamos cada middleware de su archivo correspondiente
@@ -53,5 +54,11 @@ router.put('/users/:id', authMiddleware, adminOnly, updateUserInfo);
  * Acceso: Solo Administradores
  */
 router.delete('/users/:id', authMiddleware, adminOnly, deleteUserInfo);
+
+/**
+ * RUTA: Obtener estadísticas para el dashboard
+ * Acceso: Solo Administradores
+ */
+router.get('/stats', authMiddleware, adminOnly, getDashboardStats);
 
 export default router;

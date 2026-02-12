@@ -62,6 +62,87 @@ export const adminCancelReservation = async (reservationId: number) => {
     [reservationId]
   );
 
-
   return result;
+};
+
+// --- NUEVAS FUNCIONES PARA EL PANEL DE ESTADÍSTICAS ---
+
+/**
+ * Obtiene el total de reservas realizadas en los últimos 7 días agrupadas por día de la semana.
+ * Útil para el gráfico de barras de actividad semanal.
+ */
+export const getWeeklyStats = async () => {
+  const [rows] = await db.query(`
+    SELECT 
+      CASE DAYOFWEEK(date)
+        WHEN 2 THEN 'Lun'
+        WHEN 3 THEN 'Mar'
+        WHEN 4 THEN 'Mie'
+        WHEN 5 THEN 'Jue'
+        WHEN 6 THEN 'Vie'
+        WHEN 7 THEN 'Sab'
+        WHEN 1 THEN 'Dom'
+      END as name,
+      COUNT(*) as total
+    FROM reservations
+    WHERE date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    GROUP BY DAYOFWEEK(date), name
+    ORDER BY DAYOFWEEK(date)
+  `);
+  return rows;
+};
+
+/**
+ * Obtiene la distribución de reservas según el tipo de deporte (Pádel, Tenis, etc.)
+ * Basado en la columna 'type' de la tabla 'courts'.
+ */
+export const getReservationsBySport = async () => {
+  const [rows] = await db.query(`
+    SELECT c.type as name, COUNT(r.id) as value
+    FROM courts c
+    LEFT JOIN reservations r ON c.id = r.court_id
+    GROUP BY c.type
+  `);
+  return rows;
+};
+
+/**
+ * Obtiene indicadores clave (KPIs) globales del sistema.
+ * Devuelve el total histórico de usuarios, reservas y pistas activas.
+ */
+export const getGlobalCounts = async () => {
+  const [users] = await db.query('SELECT COUNT(*) as total FROM users');
+  const [reservations] = await db.query('SELECT COUNT(*) as total FROM reservations');
+  const [courts] = await db.query('SELECT COUNT(*) as total FROM courts');
+  
+  return {
+    totalUsuarios: (users as any)[0].total,
+    totalReservas: (reservations as any)[0].total,
+    totalPistas: (courts as any)[0].total
+  };
+};
+
+/**
+ * Obtiene la previsión de reservas para los próximos 7 días (incluyendo hoy).
+ * Útil para que el administrador planifique el personal o mantenimiento.
+ */
+export const getUpcomingStats = async () => {
+  const [rows] = await db.query(`
+    SELECT 
+      CASE DAYOFWEEK(date)
+        WHEN 2 THEN 'Lun'
+        WHEN 3 THEN 'Mar'
+        WHEN 4 THEN 'Mie'
+        WHEN 5 THEN 'Jue'
+        WHEN 6 THEN 'Vie'
+        WHEN 7 THEN 'Sab'
+        WHEN 1 THEN 'Dom'
+      END as name,
+      COUNT(*) as total
+    FROM reservations
+    WHERE date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+    GROUP BY DAYOFWEEK(date), name
+    ORDER BY date ASC
+  `);
+  return rows;
 };
