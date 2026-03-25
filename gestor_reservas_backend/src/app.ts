@@ -8,7 +8,8 @@ import reservationRoutes from './routes/reservation.routes'; //Conecta las rutas
 import availabilityRoutes from './routes/availability.routes'; //Conecta las rutas de la disponibilidad de huecos libres a la app
 import adminRoutes from './routes/admin.routes'; //Conecta las rutas del panel de administrador a la app
 
-
+// NUEVO: Importamos el controlador del webhook directamente para la ruta especial
+import { stripeWebhook } from './controllers/reservation.controller';
 
 //IMPORT PARA LA RUTA DE PRUEBA MAS ABAJO
 //import { db } from './config/database';
@@ -22,7 +23,21 @@ const app = express();
 // Habilita el Intercambio de Recursos de Origen Cruzado (CORS) para permitir peticiones desde el Frontend
 // Esto permite que tu React (puerto 5173) hable con tu API (puerto 3000)
 app.use(cors());
+
+/**
+ * RUTA ESPECIAL PARA STRIPE WEBHOOK
+ * IMPORTANTE: Debe ir ANTES de express.json().
+ * Stripe necesita recibir el cuerpo de la petición en formato "raw" (bruto) 
+ * para verificar la firma de seguridad y confirmar que el pago es real.
+ */
+app.post(
+  '/api/reservations/webhook', 
+  express.raw({ type: 'application/json' }), 
+  stripeWebhook
+);
+
 // Permite que el servidor entienda y procese archivos en formato JSON
+// Se coloca después del Webhook para no interferir con la validación de Stripe
 app.use(express.json());
 
 

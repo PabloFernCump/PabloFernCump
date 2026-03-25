@@ -146,3 +146,32 @@ export const getUpcomingStats = async () => {
   `);
   return rows;
 };
+
+/**
+ * Obtiene la afluencia por horas filtrada opcionalmente por día o mes
+ */
+export const getHourlyStats = async (dayOfWeek?: number, month?: number) => {
+  let query = `
+    SELECT 
+      HOUR(start_time) as hour, 
+      COUNT(*) as total 
+    FROM reservations 
+    WHERE 1=1
+  `;
+  const params: any[] = [];
+
+  if (dayOfWeek !== undefined && dayOfWeek !== -1) {
+    query += ` AND DAYOFWEEK(date) = ?`;
+    params.push(dayOfWeek); // 1 = Domingo, 2 = Lunes...
+  }
+
+  if (month !== undefined && month !== -1) {
+    query += ` AND MONTH(date) = ?`;
+    params.push(month);
+  }
+
+  query += ` GROUP BY hour ORDER BY hour ASC`;
+
+  const [rows] = await db.query(query, params);
+  return rows;
+};

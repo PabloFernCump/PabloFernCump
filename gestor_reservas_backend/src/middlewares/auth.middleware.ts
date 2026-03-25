@@ -31,15 +31,21 @@ export const authMiddleware = (
   const token = authHeader.split(' ')[1];
 
   try {
-    // 3. Verificamos el token con nuestra clave secreta
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+    // 3. Verificamos el token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
     
-    // 4. Inyectamos los datos decodificados (id, role_id) en la petición
-    req.user = decoded;
+    // 4. Inyectamos los datos. 
+    // Asegúrate de que tu Login genere el token con: { id, role_id, email }
+    req.user = {
+      id: decoded.id,
+      role_id: decoded.role_id,
+      email: decoded.email // <--- ESTO es lo que leerá el servicio de correos
+    };
     
-    // 5. Cedemos el paso al siguiente middleware o controlador
+    // 5. Cedemos el paso al siguiente controlador
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Token inválido' });
   }
-};
+}
+

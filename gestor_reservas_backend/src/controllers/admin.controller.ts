@@ -1,4 +1,4 @@
-//Controller ADMIN
+// Controller ADMIN
 
 import { Request, Response } from 'express';
 import {
@@ -6,12 +6,11 @@ import {
   cancelReservationAsAdmin
 } from '../services/admin.service';
 import * as userRepository from '../repositories/user.repository'; // Importamos el repositorio
-import * as adminRepository from '../repositories/admin.repository'; //Importo el repositorio para traer las estadisticas
+import * as adminRepository from '../repositories/admin.repository'; // Importo el repositorio para traer las estadisticas
 
 /**
  * Obtiene el listado global de reservas para el panel de administración.
  * No requiere filtrar por usuario ya que el admin ve todo el sistema.
- * ****** Añado la actualizacion del controlador de ADMIN, para las consultas de inicio fecha, fin fecha, estado y pista
  */
 export const getAllReservations = async (req: Request, res: Response) => {
   try {
@@ -32,19 +31,12 @@ export const getAllReservations = async (req: Request, res: Response) => {
 
 /**
  * Procesa la cancelación forzosa de una reserva desde el panel de control.
- * Utiliza el ID de la reserva enviado en la URL.
  */
-export const cancelReservation = async (
-  req: Request,
-  res: Response
-) => {
+export const cancelReservation = async (req: Request, res: Response) => {
   try {
     const reservationId = Number(req.params.id);
-    
-    // Ejecutamos la cancelación y capturamos el resultado del repositorio
     const result: any = await cancelReservationAsAdmin(reservationId);
 
-    // Verificamos si realmente se encontró y actualizó la fila en la BBDD
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: 'Reserva no encontrada' });
     }
@@ -67,11 +59,8 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-// --- NUEVOS CONTROLADORES PARA LA GESTIÓN INDIVIDUAL DE USUARIOS ---
-
 /**
  * Obtiene los datos de un único usuario por su ID.
- * Se utiliza para rellenar el formulario de edición en el frontend.
  */
 export const getUserById = async (req: Request, res: Response) => {
   try {
@@ -90,7 +79,6 @@ export const getUserById = async (req: Request, res: Response) => {
 
 /**
  * Actualiza la información de un usuario (Nombre, Apellidos, Email, Rol).
- * Recibe los datos desde el cuerpo de la petición (req.body).
  */
 export const updateUserInfo = async (req: Request, res: Response) => {
   try {
@@ -126,26 +114,50 @@ export const deleteUserInfo = async (req: Request, res: Response) => {
 };
 
 /**
- * Obtiene todos los datos para el panel de estadísticas (KPIs y Gráficos)
+ * Obtiene todos los datos iniciales para el panel de estadísticas.
+ * Actualizado para incluir la carga inicial de afluencia horaria.
  */
 export const getDashboardStats = async (req: Request, res: Response) => {
   try {
-    // Usamos adminRepository para las consultas de estadísticas
-    const [dailyData, sportData, globalKPIs, upcomingData] = await Promise.all([
+    // Añadimos getHourlyStats() al Promise.all para la carga inicial por defecto
+    const [dailyData, sportData, globalKPIs, upcomingData, hourlyData] = await Promise.all([
       adminRepository.getWeeklyStats(),      
       adminRepository.getReservationsBySport(), 
       adminRepository.getGlobalCounts(),
-      adminRepository.getUpcomingStats()       
+      adminRepository.getUpcomingStats(),
+      adminRepository.getHourlyStats() // <--- Nueva consulta inicial
     ]);
 
     res.json({
       dailyData,
       sportData,
       globalKPIs,
-      upcomingData
+      upcomingData,
+      hourlyData
     });
   } catch (error: any) {
     console.error("Error al obtener estadísticas:", error);
     res.status(500).json({ message: 'Error al generar el informe' });
+  }
+};
+
+/**
+ * NUEVO: Obtiene los datos de afluencia filtrados por día de la semana y mes.
+ * Este controlador responde específicamente a los cambios de los selectores en el frontend.
+ */
+export const getHourlyStatsFiltered = async (req: Request, res: Response) => {
+  try {
+    const { day, month } = req.query;
+    
+    // Llamamos al repositorio pasando los filtros convertidos a número
+    const data = await adminRepository.getHourlyStats(
+      day ? Number(day) : undefined,
+      month ? Number(month) : undefined
+    );
+    
+    res.json(data);
+  } catch (error: any) {
+    console.error("Error al filtrar estadísticas horarias:", error);
+    res.status(500).json({ message: 'Error al filtrar el informe horario' });
   }
 };

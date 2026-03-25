@@ -41,6 +41,7 @@ export const loginUser = async (email: string, password: string) => {
 
   const token = generateToken({
     id: user.id,
+    email: user.email, // <--- Añado el mail
     role_id: user.role_id
   });
 

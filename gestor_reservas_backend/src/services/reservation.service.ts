@@ -10,6 +10,9 @@ import {
 // Cambiamos getCourts por getAllCourts y lo renombramos para que coincida con la lógica de abajo
 import { getCourtById, getAllCourts as getCourts } from '../repositories/court.repository'; 
 
+// --- NUEVA IMPORTACIÓN PARA EL WEBHOOK ---
+import { db } from '../config/database';
+
 /**
  * NUEVO: Lógica para obtener disponibilidad por Deporte y Fecha.
  * Útil para el flujo de reserva: Deporte -> Fecha -> Horas Disponibles.
@@ -116,13 +119,25 @@ export const createNewReservation = async (
   }
 
   // 6. Si todo es correcto, guardamos en la base de datos
-  return await createReservation(
+    const result: any = await createReservation(    
     userId,
     court_id,
     date,
     start_time,
-    end_time
+    end_time,
+    'pending' // <--- IMPORTANTE: Pasa el estado inicial aquí
   );
+
+  // Devolvemos un objeto limpio con el ID capturado para que el controlador no de error.
+  return {
+    id: result.insertId || result.id, // Manejamos ambos casos según tu DB
+    userId,
+    court_id,
+    date,
+    start_time,
+    end_time,
+    status: 'pending'
+  };
 };
 
 /**
@@ -140,4 +155,24 @@ export const cancelUserReservation = async (
   userId: number
 ) => {
   return await cancelReservation(reservationId, userId);
+};
+
+// --- NUEVA FUNCIÓN PARA STRIPE WEBHOOK ---
+
+/**
+ * Actualiza el estado de una reserva mediante su ID.
+ * Esta función es llamada por el controlador del Webhook de Stripe 
+ * una vez que se confirma que el pago ha sido exitoso.
+ */
+export const updateReservationStatus = async (id: number, status: string) => {
+  try {
+    // Usamos el objeto 'db' de tu archivo database.ts para ejecutar el UPDATE
+    const query = 'UPDATE reservations SET status = ? WHERE id = ?';
+    const [result] = await db.execute(query, [status, id]);
+    
+    return result;
+  } catch (error) {
+    console.error("Error en updateReservationStatus (Service):", error);
+    throw error;
+  }
 };

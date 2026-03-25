@@ -42,13 +42,14 @@ export const createReservation = async (
   courtId: number,
   date: string,
   startTime: string,
-  endTime: string
+  endTime: string,
+  status: string = 'pending' // <--- Añade el parámetro status con valor por defecto
 ) => {
   const [result] = await db.query(
     `INSERT INTO reservations 
-     (user_id, court_id, date, start_time, end_time)
-     VALUES (?, ?, ?, ?, ?)`,
-    [userId, courtId, date, startTime, endTime]
+     (user_id, court_id, date, start_time, end_time, status)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [userId, courtId, date, startTime, endTime, status]
   );
   return result;
 };
