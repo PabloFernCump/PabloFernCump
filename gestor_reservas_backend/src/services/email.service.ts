@@ -12,7 +12,12 @@ const transporter = nodemailer.createTransport({
 });
 
 // Función genérica para enviar correos
-export const sendReservationEmail = async (userEmail: string, reservation: any, type: 'PENDING' | 'CONFIRMED') => {
+export const sendReservationEmail = async (
+  userEmail: string, 
+  reservation: any, 
+  type: 'PENDING' | 'CONFIRMED',
+  paymentUrl?: string // <--- NUEVO: Añadimos este parámetro para recibir la URL de Stripe
+) => {
   
   const isConfirmed = type === 'CONFIRMED';
   
@@ -38,11 +43,15 @@ export const sendReservationEmail = async (userEmail: string, reservation: any, 
           <p><strong>Hora:</strong> ${reservation.hour}:00h</p>
         </div>
 
-        ${!isConfirmed ? `
+        ${(!isConfirmed && paymentUrl) ? `
           <div style="text-align: center; margin-top: 25px;">
-            <a href="URL_DE_TU_PAGO" style="background-color: #2c5270; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">
-              PAGAR AHORA
+            <a href="${paymentUrl}" style="background-color: #3498db; color: white; padding: 14px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              💳 PAGAR AHORA
             </a>
+            <p style="font-size: 11px; color: #999; margin-top: 10px;">
+              Si el botón no funciona, copia este enlace en tu navegador:<br>
+              ${paymentUrl}
+            </p>
           </div>
         ` : ''}
 

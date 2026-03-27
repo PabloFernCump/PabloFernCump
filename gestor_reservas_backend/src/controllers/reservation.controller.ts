@@ -78,8 +78,31 @@ export const createReservation = async (
       cancel_url: `${process.env.FRONTEND_URL}/cancel`,
     });
 
+    /**
+     * EXPLICACIÓN DEL FIX PARA EL EMAIL:
+     * Creamos un objeto 'emailData' mapeando los nombres de tu req.body 
+     * a los nombres que espera el servicio de email (sport, date, courtName, hour).
+     * Esto soluciona los "undefined" en el correo.
+     */
+    const emailData = {
+      sport: req.body.sport,
+      date: req.body.date,
+      courtName: `Pista ${req.body.courtId || 'Seleccionada'}`, 
+      hour: req.body.time || req.body.hour 
+    };
+
+    /**
+     * EXPLICACIÓN DEL FIX DE TYPESCRIPT (Error image_d675e0):
+     * Usamos 'session.url || undefined' porque Stripe puede devolver null, 
+     * pero nuestra función de email solo acepta string o undefined.
+     */
     // 3. Enviamos el Mail de "Pendiente" (No ponemos 'await' para no hacer esperar al usuario)
-    sendReservationEmail(userEmail, req.body, 'PENDING').catch(console.error);
+    sendReservationEmail(
+      userEmail, 
+      emailData, // Pasamos los datos limpios aquí
+      'PENDING',
+      session.url || undefined // <--- Pasamos la URL de Stripe al email con el fix de TS
+    ).catch(console.error);
 
     // 4. IMPORTANTE: Enviamos la URL de Stripe al Frontend
     res.status(201).json({ 
@@ -126,7 +149,17 @@ export const stripeWebhook = async (req: any, res: Response) => {
       await updateReservationStatus(Number(reservationId), 'CONFIRMED');
 
       // 2. Enviamos el email de confirmación definitiva al cliente
-      await sendReservationEmail(userEmail!, { sport: 'Confirmada (Pagada)' }, 'CONFIRMED');
+      // EXPLICACIÓN: Mapeamos datos fijos para que el email de confirmación no dé undefined
+      await sendReservationEmail(
+        userEmail!, 
+        { 
+          sport: 'Confirmada (Pagada)', 
+          date: 'Pago recibido', 
+          courtName: 'Confirmada', 
+          hour: '--' 
+        }, 
+        'CONFIRMED'
+      );
       
       console.log(`✅ ¡Pago verificado! Reserva ${reservationId} actualizada a CONFIRMED.`);
     } catch (dbError) {
