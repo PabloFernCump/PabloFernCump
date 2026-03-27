@@ -30,7 +30,7 @@ const DashboardPage = () => {
 
           <p>
             {roleId === 2
-              ? 'Has iniciado sesión como administrador. Tienes acceso total a las pistas y reservas.'
+              ? 'Has iniciado sesión como administrador. Acceso total a usuarios, pistas y estadísticas.'
               : 'Has iniciado sesión correctamente. Aquí puedes gestionar tus pistas de forma rápida.'}
           </p>
 

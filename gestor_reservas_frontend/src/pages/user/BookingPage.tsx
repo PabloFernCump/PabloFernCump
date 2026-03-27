@@ -1,6 +1,7 @@
 //Este archivo es el "Director de Orquesta"
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // <--- NUEVO: Hook para navegar a 'Mis Reservas'
 import BookingStepSport from '../../components/booking/BookingStepSport';
 import BookingStepDate from '../../components/booking/BookingStepDate';
 import BookingStepTime from '../../components/booking/BookingStepTime';
@@ -11,6 +12,9 @@ import '../../styles/BookingPage.css';
 type BookingStep = 'sport' | 'date' | 'time' | 'confirm' | 'success'; // <--- ACTUALIZADO: Añadido 'success'
 
 const BookingPage: React.FC = () => {
+  // Hook de navegación para redirigir al usuario al terminar
+  const navigate = useNavigate();
+
   // ESTADO: En qué paso estamos
   const [currentStep, setCurrentStep] = useState<BookingStep>('sport');
   
@@ -24,6 +28,13 @@ const BookingPage: React.FC = () => {
 
   // NUEVO: Estado para guardar temporalmente las pistas disponibles que vienen del Paso 3
   const [tempCourts, setTempCourts] = useState<any[]>([]);
+
+  /**
+   * NUEVO ESTADO: paymentUrl
+   * Guardamos la URL de Stripe que nos devuelve el servidor tras crear la reserva.
+   * Si no se paga en el momento, el usuario tendrá este enlace también en su email.
+   */
+  const [paymentUrl, setPaymentUrl] = useState<string>('');
 
   // Función para manejar la selección del deporte (Paso 1)
   const handleSportSelect = (selectedSport: string) => {
@@ -83,7 +94,14 @@ const BookingPage: React.FC = () => {
           <BookingStepConfirm 
             bookingData={bookingData} 
             availableCourts={tempCourts} 
-            onSuccess={() => setCurrentStep('success')} // Si el POST es exitoso, vamos a success
+            /**
+             * ACTUALIZADO: El componente hijo ahora nos devuelve la URL de pago de Stripe.
+             * La capturamos aquí para poder mostrarla en el siguiente paso (success).
+             */
+            onSuccess={(url: string) => {
+              setPaymentUrl(url); // Guardamos la URL recibida del backend
+              setCurrentStep('success'); // Si el POST es exitoso, vamos a success
+            }} 
           />
         );
       case 'success':
@@ -96,18 +114,32 @@ const BookingPage: React.FC = () => {
             <h2 className="success-title">¡Reserva Confirmada!</h2>
             <p className="success-message">
               Tu pista ha sido reservada con éxito. <br />
-              Te hemos enviado los detalles a tu correo.
+              <strong>Para garantizar tu plaza, completa el pago pulsando el botón de abajo.</strong>
             </p>
             <div className="success-actions">
+              
+              {/** * NUEVO BOTÓN DE PAGO:
+               * Solo aparece si tenemos la URL de Stripe. Usa la clase que creamos en CSS 
+               * para que sea el botón más llamativo de la pantalla.
+               */}
+              {paymentUrl && (
+                <a 
+                  href={paymentUrl} 
+                  className="btn-pay-stripe"
+                >
+                  💳 COMPLETAR PAGO AHORA
+                </a>
+              )}
+
               <button
-                onClick={() => window.location.href = '/mis-reservas'}
-                className="btn-primary"
+                onClick={() => navigate('/mis-reservas')}
+                className="btn-secondary"
               >
                 Ver mis reservas
               </button>
               <button
                 onClick={() => setCurrentStep('sport')}
-                className="btn-secondary"
+                className="btn-text"
               >
                 Hacer otra reserva
               </button>

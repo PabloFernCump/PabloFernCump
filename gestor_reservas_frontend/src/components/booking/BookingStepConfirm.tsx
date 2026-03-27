@@ -4,7 +4,7 @@ import '../../styles/BookingStepConfirm.css';
 interface Props {
   bookingData: any;
   availableCourts: any[];
-  onSuccess: () => void;
+  onSuccess: (url: string) => void; // <--- Esto dice: "recibo una URL"
 }
 
 const BookingStepConfirm: React.FC<Props> = ({ bookingData, availableCourts, onSuccess }) => {
@@ -36,7 +36,11 @@ const BookingStepConfirm: React.FC<Props> = ({ bookingData, availableCourts, onS
       });
 
       if (response.ok) {
-        onSuccess(); // Avisamos al padre que todo salió bien
+      // 1. Extraemos los datos de la respuesta (donde viene la URL)
+      const data = await response.json();
+      
+      // 2. Le pasamos la URL al padre (BookingPage)
+      onSuccess(data.url);
       } else {
         const error = await response.json();
         alert(`Error: ${error.message}`);

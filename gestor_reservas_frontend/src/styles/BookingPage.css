@@ -136,3 +136,37 @@
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+
+/* --- BOTÓN DE PAGO STRIPE (AÑADIR AL FINAL DE BOOKINGPAGE.CSS) --- */
+
+.btn-pay-stripe {
+    display: inline-block;
+    width: 100%;
+    max-width: 400px; /* Un poco más ancho para que destaque */
+    margin: 1rem 0 2rem 0; /* Separación respecto a los otros botones */
+    padding: 1.2rem;
+    background-color: #10b981; /* Verde esmeralda que combina con el success-icon */
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-decoration: none; /* Quita el subrayado del enlace */
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-pay-stripe:hover {
+    background-color: #059669; /* Verde un poco más oscuro al pasar el ratón */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    color: white; 
+}
+
+.btn-pay-stripe:active {
+    transform: translateY(-1px);
+}
