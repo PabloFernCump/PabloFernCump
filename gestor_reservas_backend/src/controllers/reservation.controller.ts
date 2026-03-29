@@ -69,10 +69,18 @@ export const createReservation = async (
         quantity: 1,
       }],
       mode: 'payment',
-      // Metadata: Pasamos el ID y el email para recuperarlos en el Webhook
+      /**
+       * EXPLICACIÓN DEL CAMBIO:
+       * Guardamos TODA la información en la metadata. 
+       * Stripe guardará esto y nos lo devolverá en el Webhook cuando el pago termine.
+       * Esto es lo que permite que el archivo .ics tenga datos reales.
+       */
       metadata: { 
         reservationId: String(result.id),
-        userEmail: userEmail 
+        userEmail: userEmail,
+        sport: req.body.sport,
+        date: req.body.date,
+        hour: String(req.body.hour || req.body.time || '10'), // Fallback a las 10 si no hay nada        courtName: `Pista ${req.body.courtId || 'Seleccionada'}`
       }, 
       success_url: `${process.env.FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.FRONTEND_URL}/cancel`,
@@ -148,22 +156,32 @@ export const stripeWebhook = async (req: any, res: Response) => {
       // 1. Actualizamos el estado en la DB a 'CONFIRMED' usando el Service
       await updateReservationStatus(Number(reservationId), 'CONFIRMED');
 
+      /**
+       * EXPLICACIÓN DEL FIX:
+       * Ahora recuperamos los datos reales de la metadata que guardamos antes.
+       * Esto hará que el email de confirmación tenga la fecha y hora correctas
+       * para generar el archivo .ics sin errores de "NaN".
+       */
+
+      const rawHour = session.metadata?.hour || '10';
+      const cleanHour = rawHour.includes(':') ? rawHour.split(':')[0] : rawHour;
+      const confirmedData = {
+        sport: session.metadata?.sport || 'Deporte',
+        date: session.metadata?.date || '',
+        courtName: session.metadata?.courtName || 'Pista',
+        hour: cleanHour // Enviamos la hora ya limpia
+      };
+
       // 2. Enviamos el email de confirmación definitiva al cliente
-      // EXPLICACIÓN: Mapeamos datos fijos para que el email de confirmación no dé undefined
       await sendReservationEmail(
         userEmail!, 
-        { 
-          sport: 'Confirmada (Pagada)', 
-          date: 'Pago recibido', 
-          courtName: 'Confirmada', 
-          hour: '--' 
-        }, 
+        confirmedData, 
         'CONFIRMED'
       );
       
       console.log(`✅ ¡Pago verificado! Reserva ${reservationId} actualizada a CONFIRMED.`);
     } catch (dbError) {
-      console.error("Error actualizando la base de datos desde el Webhook:", dbError);
+      console.error("Error en Webhook:", dbError);
     }
   }
 
