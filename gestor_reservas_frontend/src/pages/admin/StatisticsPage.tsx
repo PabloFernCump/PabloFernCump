@@ -49,14 +49,16 @@ const StatisticsPage = () => {
     // --- EFECTO PARA ACTUALIZAR SOLO EL GRÁFICO HORARIO CUANDO CAMBIAN LOS FILTROS ---
     useEffect(() => {
         const updateHourlyStats = async () => {
-            if (!data) return; // Evitar ejecutar antes de la carga inicial
+            if (!data) return;
             try {
-                const response = await fetch(`http://localhost:3000/api/admin/stats/hourly?day=${filterDay}&month=${filterMonth}`, {
+                // CAMBIO AQUÍ: La URL debe terminar en /hourly-filtered, no en /hourly
+                const response = await fetch(`http://localhost:3000/api/admin/stats/hourly-filtered?day=${filterDay}&month=${filterMonth}`, {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
+
                 if (response.ok) {
                     const hourlyResult = await response.json();
-                    // Actualizamos solo la parte de hourlyData dentro de nuestro estado global
+                    // Actualizamos solo la parte de hourlyData
                     setData((prev: any) => ({ ...prev, hourlyData: hourlyResult }));
                 }
             } catch (error) {
