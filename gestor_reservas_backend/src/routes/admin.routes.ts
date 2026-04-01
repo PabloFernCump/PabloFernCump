@@ -4,11 +4,13 @@ import { Router } from 'express';
 import { 
   getAllReservations, 
   cancelReservation, 
+  bulkDeleteReservations, // <--- IMPORTADO: Nueva función de borrado masivo
   getAllUsers, // <--- 1. Importamos la nueva función
   getUserById,      // <--- IMPORTADO: Obtener un socio por ID
   updateUserInfo,   // <--- IMPORTADO: Actualizar datos del socio
   deleteUserInfo,    // <--- IMPORTADO: Eliminar socio
-  getDashboardStats    // <--- IMPORTADO: Estadisiticas de Admin
+  getDashboardStats,    // <--- IMPORTADO: Estadisiticas de Admin
+  getHourlyStatsFiltered      // <--- IMPORTADO: Estadisiticas de Admin
 } from '../controllers/admin.controller';
 
 // Importamos cada middleware de su archivo correspondiente
@@ -30,6 +32,12 @@ router.get('/reservations', authMiddleware, adminOnly, getAllReservations);
  * Método: PUT para actualizar el estado a 'cancelled' en la BBDD
  */
 router.put('/reservations/:id/cancel', authMiddleware, adminOnly, cancelReservation);
+
+/**
+ * RUTA: Eliminar reservas masivamente por filtros (fecha, pista o usuario)
+ * Acceso: Solo Administradores
+ */
+router.delete('/reservations/bulk-delete', authMiddleware, adminOnly, bulkDeleteReservations);
 
 /**
  * RUTA: Obtener todos los usuarios
@@ -60,5 +68,11 @@ router.delete('/users/:id', authMiddleware, adminOnly, deleteUserInfo);
  * Acceso: Solo Administradores
  */
 router.get('/stats', authMiddleware, adminOnly, getDashboardStats);
+
+/**
+ * RUTA: Obtener estadísticas para el dashboard
+ * Acceso: Solo Administradores
+ */
+router.get('/stats/hourly-filtered', getHourlyStatsFiltered);
 
 export default router;

@@ -89,7 +89,7 @@ export const sendReservationEmail = async (
   // --- DEFINICIÓN ÚNICA DE mailOptions (ESTILO PROFESIONAL) ---
   // Usamos 'any' para evitar errores de TS con la propiedad 'alternatives'
   const mailOptions: any = {
-    from: `"Club Deportivo 🎾" <${process.env.EMAIL_USER}>`,
+    from: `"Club Deportivo La Fortuna 🎾" <${process.env.EMAIL_USER}>`,
     to: userEmail,
     subject: isConfirmed ? '✅ ¡Reserva Confirmada y Pagada!' : '⏳ Reserva Recibida - Pendiente de Pago',
     attachments: attachments, 

@@ -4,7 +4,7 @@ import { db } from '../config/database';
 
 export const findUserByEmail = async (email: string) => {
   const [rows] = await db.query(
-    'SELECT * FROM users WHERE email = ?',
+    'SELECT id, firstName, lastName, email, password_hash, role_id FROM users WHERE email = ?',
     [email]
   );
   return (rows as any[])[0];
@@ -17,7 +17,7 @@ export const createUser = async (
   passwordHash: string
 ) => {
   const [result] = await db.query(
-    'INSERT INTO users (name, apellidos, email, password_hash) VALUES (?, ?, ?, ?)', // <--- Añadimos apellidos y un "?" extra
+    'INSERT INTO users (firstName, lastName, email, password_hash) VALUES (?, ?, ?, ?)', // <--- Añadimos apellidos y un "?" extra
     [name, apellidos, email, passwordHash] // <--- Pasamos el valor a la consulta
   );
   return result;
@@ -25,7 +25,7 @@ export const createUser = async (
 
 export const findAllUsers = async () => {
   const [rows] = await db.query(
-    'SELECT id, name as nombre, apellidos, email, role_id FROM users'
+    'SELECT id, firstName as nombre, lastName as apellidos, email, role_id FROM users'
   );
   return rows as any[];
 };
@@ -38,7 +38,7 @@ export const findAllUsers = async () => {
  */
 export const findUserById = async (id: number) => {
   const [rows] = await db.query(
-    'SELECT id, name as nombre, apellidos, email, role_id FROM users WHERE id = ?',
+    'SELECT id, firstName as nombre, lastName as apellidos, email, role_id FROM users WHERE id = ?',
     [id]
   );
   return (rows as any[])[0];
@@ -50,7 +50,7 @@ export const findUserById = async (id: number) => {
  */
 export const updateUser = async (id: number, userData: any) => {
   const [result] = await db.query(
-    'UPDATE users SET name = ?, apellidos = ?, email = ?, role_id = ? WHERE id = ?',
+    'UPDATE users SET firstName = ?, lastName = ?, email = ?, role_id = ? WHERE id = ?',
     [userData.nombre, userData.apellidos, userData.email, userData.role_id, id]
   );
   return result;

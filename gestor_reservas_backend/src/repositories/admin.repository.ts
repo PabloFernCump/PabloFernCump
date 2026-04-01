@@ -15,7 +15,7 @@ export const getAllReservations = async (
   let query = `
     SELECT 
       r.id, r.date, r.start_time, r.end_time, r.status,
-      u.name AS user_name,
+      u.firstName AS user_name,
       c.name AS court_name
     FROM reservations r
     JOIN users u ON u.id = r.user_id
@@ -142,7 +142,7 @@ export const getUpcomingStats = async () => {
     FROM reservations
     WHERE date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
     GROUP BY DAYOFWEEK(date), name
-    ORDER BY date ASC
+    ORDER BY MIN(date) ASC
   `);
   return rows;
 };
@@ -160,12 +160,13 @@ export const getHourlyStats = async (dayOfWeek?: number, month?: number) => {
   `;
   const params: any[] = [];
 
-  if (dayOfWeek !== undefined && dayOfWeek !== -1) {
+  // Validamos explícitamente que no sea undefined ni null
+  if (dayOfWeek !== undefined && dayOfWeek !== null && dayOfWeek !== -1) {
     query += ` AND DAYOFWEEK(date) = ?`;
-    params.push(dayOfWeek); // 1 = Domingo, 2 = Lunes...
+    params.push(dayOfWeek); 
   }
 
-  if (month !== undefined && month !== -1) {
+  if (month !== undefined && month !== null && month !== -1) {
     query += ` AND MONTH(date) = ?`;
     params.push(month);
   }
@@ -174,4 +175,42 @@ export const getHourlyStats = async (dayOfWeek?: number, month?: number) => {
 
   const [rows] = await db.query(query, params);
   return rows;
+};
+
+/**
+ * Elimina reservas masivamente basadas en filtros (pista, usuario o fecha)
+ */
+export const deleteReservationsByFilter = async (filters: { 
+  date?: string, 
+  courtId?: number, 
+  userId?: number, 
+  ids?: string 
+}) => {
+  const { date, courtId, userId, ids } = filters;
+
+  // Si no hay absolutamente nada, lanzamos error
+  if (!date && !courtId && !userId && !ids) {
+    throw new Error("Se requiere al menos un filtro o selección para borrar.");
+  }
+
+  let query = "DELETE FROM reservations WHERE 1=1";
+  const params: any[] = [];
+
+  // SI HAY IDS, priorizamos borrar por esos IDs específicos
+  if (ids) {
+    const idList = ids.split(',');
+    query += ` AND id IN (${idList.map(() => '?').join(',')})`;
+    params.push(...idList);
+  } else {
+    if (date) { query += " AND date = ?"; params.push(date); }
+    if (courtId) { query += " AND court_id = ?"; params.push(courtId); }
+    if (userId) { query += " AND user_id = ?"; params.push(userId); }
+  }
+
+  // --- IMPORTANTE: Añade el 'return' y usa 'as any' si tienes problemas de tipos ---
+  const [result]: any = await db.execute(query, params); 
+  return result; // <--- Esto es lo que le falta a tu código
+
+  // Ejecutas la query en tu base de datos...
+  // return connection.execute(query, params); 
 };

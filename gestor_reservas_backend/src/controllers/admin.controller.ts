@@ -30,7 +30,7 @@ export const getAllReservations = async (req: Request, res: Response) => {
 };
 
 /**
- * Procesa la cancelación forzosa de una reserva desde el panel de control.
+ * Procesa la cancelación forzosa de una reserva (1 a 1 por ID) desde el panel de control.
  */
 export const cancelReservation = async (req: Request, res: Response) => {
   try {
@@ -43,6 +43,33 @@ export const cancelReservation = async (req: Request, res: Response) => {
 
     res.json({ message: 'Reserva cancelada por el administrador correctamente' });
   } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+/**
+ * Procesa la eliminación masiva o selectiva desde el panel
+ */
+export const bulkDeleteReservations = async (req: Request, res: Response) => {
+  try {
+    // 1. Extraemos también 'ids' de la query
+    const { date, courtId, userId, ids } = req.query;
+
+    // 2. Se lo pasamos al repositorio (añadiendo el campo ids)
+    const result = await adminRepository.deleteReservationsByFilter({
+      date: date as string,
+      courtId: courtId ? Number(courtId) : undefined,
+      userId: userId ? Number(userId) : undefined,
+      ids: ids as string // <--- AÑADIDO: Pasamos la cadena de IDs (ej: "283,284")
+    });
+
+    res.json({ 
+      message: result.affectedRows > 0 
+        ? `Se han eliminado ${result.affectedRows} reservas correctamente.` 
+        : "No se encontraron reservas para eliminar con esos criterios."
+    });
+  } catch (error: any) {
+    // Si el repositorio lanza el error de "falta de filtros", llegará aquí
     res.status(400).json({ message: error.message });
   }
 };
@@ -149,11 +176,11 @@ export const getHourlyStatsFiltered = async (req: Request, res: Response) => {
   try {
     const { day, month } = req.query;
     
-    // Llamamos al repositorio pasando los filtros convertidos a número
-    const data = await adminRepository.getHourlyStats(
-      day ? Number(day) : undefined,
-      month ? Number(month) : undefined
-    );
+    // Verificamos si el parámetro existe y no es el valor de "Todos" (-1)
+    const dayParam = (day !== undefined && day !== '-1') ? Number(day) : undefined;
+    const monthParam = (month !== undefined && month !== '-1') ? Number(month) : undefined;
+    
+    const data = await adminRepository.getHourlyStats(dayParam, monthParam);
     
     res.json(data);
   } catch (error: any) {

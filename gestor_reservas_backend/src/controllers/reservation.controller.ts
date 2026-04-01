@@ -154,7 +154,7 @@ export const stripeWebhook = async (req: any, res: Response) => {
 
     try {
       // 1. Actualizamos el estado en la DB a 'CONFIRMED' usando el Service
-      await updateReservationStatus(Number(reservationId), 'CONFIRMED');
+      await updateReservationStatus(Number(reservationId), 'confirmed');
 
       /**
        * EXPLICACIÓN DEL FIX:
