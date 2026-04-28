@@ -50,15 +50,25 @@ Aplicación web full stack para la gestión de reservas en clubes deportivos.
 - Entorno dockerizado (Node + base de datos)
 - Gestión de servicios con docker-compose
 
-- 📩 Notificaciones:
-  - Confirmaciones por email  
-  - Integración con calendario mediante eventos descargables  
-
-- 💳 Pagos:
-  - Integración completa con Stripe para gestión de reservas  
-
-- 📊 Analítica:
-  - Visualización de datos clave del negocio mediante dashboard
+### 📚 Librerías y dependencias principales:
+- **Frontend:**
+  - React (interfaz de usuario)
+  - Axios (peticiones HTTP)
+  - React Router (navegación SPA)
+  
+- **Backend:**
+  - Express (servidor Node.js)
+  - Nodemailer (envío de emails)
+  - Stripe (pagos online)
+  - ics (generación de eventos de calendario iOS / Google Calendar)
+  
+- **Utilidades:**
+  - dotenv (gestión de variables de entorno)
+  - moment / date-fns (gestión de fechas)
+  
+- **Despliegue:**
+  - Docker
+  - docker-compose
  
 📌 Proyecto desarrollado simulando un entorno real de negocio, enfocado en la experiencia de usuario y la gestión operativa de clubes deportivos.
 
