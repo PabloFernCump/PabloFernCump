@@ -45,7 +45,7 @@ Me apasiona aprender, colaborar en proyectos con propósito y seguir mejorando c
 ---
 ## 📜 Certificaciones
 ### Curso de Desarrollo con Inteligencia Artificial
-<!-- <img src="TU_IMAGEN_CERTIFICADO.JPG" alt="Certificado de desarrollo con IA" width="500"> -->
+<img src="Certificado.png" alt="Certificado de desarrollo con IA" width="500">
 
 ---
 
