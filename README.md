@@ -25,7 +25,7 @@ He trabajado especialmente con constructores visuales como **Elementor** y **Div
 Además, he realizado un **curso de desarrollo con Inteligencia Artificial**, ampliando mis conocimientos en nuevas herramientas y enfoques tecnológicos aplicados al desarrollo.
 
 ### 🔧 Tecnologías que estoy aprendiendo:
-- **Frontend:** HTML5, CSS3, JavaScript, TypeScript
+- **Frontend:** HTML5, CSS3, JavaScript, TypeScript, React
 - **Backend:** PHP, Java, Node.js
 - **CMS:** WordPress (Elementor, Divi)   
 - **Bases de datos:** MySQL
@@ -54,14 +54,16 @@ Me apasiona aprender, colaborar en proyectos con propósito y seguir mejorando c
 ### 🎾 Plataforma de reservas deportivas (Padel & Tenis)
 Aplicación web full stack para la gestión de reservas en clubes deportivos, desarrollada con **Node.js y TypeScript**.
 
-- 🔧 Tecnologías: Node.js, TypeScript, MySQL, Docker, CSS  
+- 🔧 Tecnologías: Node.js, TypeScript, React, MySQL, Docker, CSS  
 - ⚙️ Funcionalidades:
   - Sistema de reservas de pistas  
   - Gestión de usuarios, reservas y pistas 
   - Envío automático de emails transaccionales  
   - Integración de pagos online con Stripe  
   - Generación de eventos añadibles a calendario (iOS / Google Calendar)  
-  - Dashboard con métricas y analítica del club  
+  - Dashboard con métricas y analítica del club
+
+- ⚛️ Frontend desarrollado con React para una experiencia dinámica e interactiva.
 
 - 📩 Notificaciones:
   - Confirmaciones por email  
