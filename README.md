@@ -76,7 +76,7 @@ Aplicación web full stack para la gestión de reservas en clubes deportivos.
 
 ---
 
-# 🔧 Tecnologías que estoy aprendiendo:
+# 🔧 Tecnologías y herramientas:
 ### 💻 Desarrollo
 - **Frontend:** HTML5, CSS3, JavaScript, TypeScript, React  
 - **Backend:** Node.js, PHP, Java  
@@ -115,9 +115,9 @@ Me apasiona aprender, colaborar en proyectos con propósito y seguir mejorando c
 # 📫 Conectemos
 Si quieres charlar sobre tecnología, desarrollo o liderazgo, ¡me encantará conectar contigo!  
 
-📧 [<img src="IMGgmail.PNG" alt="Correo electronico" width="350">](pablofernandezcumplido@gmail.com)
+[<img src="IMGgmail.PNG" alt="Correo electronico" width="350">](pablofernandezcumplido@gmail.com)
 <br>
-💼 [<img src="IMGin.PNG" alt="Linkedin" width="350">](https://www.linkedin.com/in/pablo-fern%C3%A1ndez-cumplido-57108b332/)
+[<img src="IMGin.PNG" alt="Linkedin" width="350">](https://www.linkedin.com/in/pablo-fern%C3%A1ndez-cumplido-57108b332/)
 <br>
 
 <!--
