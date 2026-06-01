@@ -17,7 +17,7 @@ Gracias a esta trayectoria, he desarrollado una sólida **capacidad de liderazgo
 ---
 
 # 💻 Desarrollo Web (DAW)
-Actualmente estoy cursando el **Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web (DAW)**.  
+**Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web (DAW)**.  
 Durante mis **prácticas (600 horas)**, me he especializado en:
 - Desarrollo con **WordPress desde cero**
 - Creación de webs con **Elementor y Divi**
@@ -73,6 +73,21 @@ Aplicación web full stack para la gestión de reservas en clubes deportivos.
 📌 Proyecto desarrollado simulando un entorno real de negocio, enfocado en la experiencia de usuario y la gestión operativa de clubes deportivos.
 
 <!-- 🔗 [Ver proyecto](AQUI_TU_LINK) -->
+
+## 💼 CRM Personal – Gestión Freelance (Fullstack)
+Sistema de gestión a medida diseñado para optimizar el control de clientes, presupuestos, requerimientos y flujos de trabajo en proyectos de desarrollo independiente.
+
+### 🔧 Tecnologías:
+- React.js (Flexbox & CSS Grid, diseño responsivo)
+- Node.js, Express.js (Arquitectura de API REST)
+- MySQL (Persistencia relacional y control de duplicados)
+- Windows Batch (Scripts `.bat` para auto-arranque coordinado y apagado seguro)
+
+### ⚙️ Funcionalidades:
+- **Dashboard de Métricas:** Control en tiempo real...
+- **Gestión Avanzada de Clientes:** Formularios con validación en tiempo real para empresas, contactos, NIF, direcciones y sectores editables directamente desde las tablas.
+- **Control de Tiempos y Plazos:** Alertas visuales dinámicas de vencimiento basadas en fechas de entrega ("Quedan X días", "¡Faltan 2 días!", "Vencido por X días").
+- **Módulo de Requerimientos:** Sistema integrado de especificaciones y anotaciones persistentes vinculadas a cada proyecto.
 
 ---
 
