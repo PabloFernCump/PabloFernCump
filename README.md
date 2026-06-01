@@ -136,6 +136,6 @@ Si quieres charlar sobre tecnología, desarrollo o liderazgo, ¡me encantará co
 <br>
 
 <!--
-[<img src="IMGgmail.PNG" alt="Correo electronico" width="350">](pablofernandezcumplido@gmail.com)
+[<img src="IMGgmail.PNG" alt="Correo electronico" width="350">](mailto:pablofernandezcumplido@gmail.com)
 [<img src="IMGin.PNG" alt="Linkedin" width="350">](https://www.linkedin.com/in/pablo-fern%C3%A1ndez-cumplido-57108b332/)
 -->
